@@ -1,15 +1,18 @@
 {
-  "name": "my-webpack-project",
+  "name": "battleship",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "Battleship",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch",
+    "lint": "eslint .",
+    "format": "prettier --write ."
   },
-  "author": "",
+  "author": "Sam Cason",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.25.2",
