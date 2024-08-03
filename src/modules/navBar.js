@@ -1,35 +1,35 @@
-export const createHeader = () => {
-  const header = document.createElement("div");
-  header.className = "header";
+export const createNavBar = () => {
+  const navBar = document.createElement("div");
+  navBar.className = "navBar";
 
-  document.body.appendChild(header);
+  document.body.appendChild(navBar);
 
-  const headLogo = document.createElement("div");
-  headLogo.className = "head-logo";
+  const navLogo = document.createElement("div");
+  navLogo.className = "nav-logo";
 
-  header.appendChild(headLogo);
+  navBar.appendChild(navLogo);
 
-  const headTitleContainer = document.createElement("div");
-  headTitleContainer.className = "head-title-container";
+  const navTitleContainer = document.createElement("div");
+  navTitleContainer.className = "nav-title-container";
 
-  header.appendChild(headTitleContainer);
+  navBar.appendChild(navTitleContainer);
 
   const navMenuBox = document.createElement("div");
   navMenuBox.className = "nav-menu-box";
 
-  header.appendChild(navMenuBox);
+  navBar.appendChild(navMenuBox);
 
   const logoImg = document.createElement("img");
   logoImg.className = "logo-img";
   logoImg.src = "#";
 
-  headLogo.appendChild(logoImg);
+  navLogo.appendChild(logoImg);
 
-  const headTitle = document.createElement("h1");
-  headTitle.className = "head-title";
-  headTitle.innerText = "Battleship Game";
+  const navTitle = document.createElement("h1");
+  navTitle.className = "nav-title";
+  navTitle.innerText = "Battleship Game";
 
-  headTitleContainer.appendChild(headTitle);
+  navTitleContainer.appendChild(navTitle);
 
   const gameLink = document.createElement("a");
   const aboutLink = document.createElement("a");

@@ -1,4 +1,4 @@
 import "./styles/styles.css";
-import { createHeader } from "./modules/header";
+import { createNavBar } from "./modules/navBar";
 
-createHeader();
+createNavBar();
