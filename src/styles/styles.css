@@ -1,11 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500;1,700;1,900&display=swap");
 
 body {
   font-family: "Montserrat";
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
+/* Nav Bar Styling */
 .navBar {
   display: flex;
   flex-direction: row;
@@ -46,4 +50,30 @@ body {
 
 .nav-menu-link:hover {
   color: rgb(97, 129, 97);
+}
+
+/* Main App Styling */
+
+.battle-app {
+  background-color: rgb(50, 82, 50);
+  flex: 1;
+}
+
+/* Footer */
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(29, 29, 29);
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-text {
+  color: rgb(228, 228, 228);
+  font-size: 15px;
 }
