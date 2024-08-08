@@ -55,4 +55,19 @@ test("The gameboard class specifies if it contains a ship with the designated ID
 
     expect(gameBoard.hasShip("battleship")).toBe(true);
     expect(gameBoard.hasShip("destroyer")).toBe(false);
+});
+
+test("Gameboard is able to remove a ship with specified ID", () => {
+    const gameBoard = new GameBoard();
+    gameBoard.createBoard();
+
+    const ship = new Ship(4, "battleship");
+    gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4});
+
+    gameBoard.removeship("battleship");
+
+    expect(gameBoard.board[0][0]["ship"]).toBeUndefined();
+    expect(gameBoard.board[0][1]["ship"]).toBeUndefined();
+    expect(gameBoard.board[0][2]["ship"]).toBeUndefined();
+    expect(gameBoard.board[0][3]["ship"]).toBeUndefined();
 })
