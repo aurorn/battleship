@@ -70,4 +70,30 @@ test("Gameboard is able to remove a ship with specified ID", () => {
     expect(gameBoard.board[0][1]["ship"]).toBeUndefined();
     expect(gameBoard.board[0][2]["ship"]).toBeUndefined();
     expect(gameBoard.board[0][3]["ship"]).toBeUndefined();
+});
+
+test("Gameboard throws an error if user tries to place more than 5 ships", () => {
+    const gameBoard = new GameBoard();
+    gameBoard.createBoard();
+
+    const ship = new Ship(4);
+    gameBoard.placeShip(ship, { x: 0, y: 0, axis: "x", length: 4});
+
+    const ship2 = new Ship(4);
+    gameBoard.placeShip(ship2, { x: 1, y: 5, axis: "x", length: 4});
+
+    const ship3 = new Ship(4);
+    gameBoard.placeShip(ship3, { x: 3, y: 0, axis: "x", length: 4});
+
+    const ship4 = new Ship(4);
+    gameBoard.placeShip(ship4, { x: 3, y: 5, axis: "x", length: 4});
+
+    const ship5 = new Ship(4);
+    gameBoard.placeShip(ship5, { x: 5, y: 0, axis: "x", length: 4});
+
+    const ship6 = new Ship(4);
+    expect(() => {
+        gameBoard.placeShip(ship6, { x: 5, y: 5, axies: "x", length: 4})
+    }).toThrow();
+    
 })
