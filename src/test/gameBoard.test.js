@@ -44,3 +44,15 @@ test("able to place a ship on both axis'", () => {
     expect(gameBoard.board[2][0]["ship"]).toEqual(ship);
     expect(gameBoard.board[3][0]["ship"]).toEqual(ship);
 });
+
+
+test("The gameboard class specifies if it contains a ship with the designated ID", () => {
+    const gameBoard = new GameBoard();
+    gameBoard.createBoard();
+
+    const ship = new Ship(4, "battleship");
+    gameBoard.placeShip(ship, { x: 0, y: 0, axis: "y", length: 4});
+
+    expect(gameBoard.hasShip("battleship")).toBe(true);
+    expect(gameBoard.hasShip("destroyer")).toBe(false);
+})
