@@ -1,31 +1,31 @@
 export default class ship {
-  #length;
+  #size;
   #id;
 
   #hits = 0;
 
-  constructor(length, id) {
-    if (!length) throw new TypeError("Please Provide the Ship Length.");
+  constructor(size, id) {
+    if (!size) throw new TypeError("Please Provide the Ship size.");
 
-    if (typeof length !== "number") {
-      throw new TypeError("The Ship length must be a number!");
+    if (typeof size !== "number") {
+      throw new TypeError("The Ship size must be a number!");
     }
 
-    if (length < 2 || length > 5) {
+    if (size < 2 || size > 5) {
       throw new RangeError(
-        "Ship length cannot be shorter than 2 or longer than 5 squares",
+        "Ship size cannot be shorter than 2 or longer than 5 squares",
       );
     }
 
-    this.#length = length;
+    this.#size = size;
     this.#id = id;
   }
 
   get id() {
     return this.#id;
   }
-  get length() {
-    return this.#length;
+  get size() {
+    return this.#size;
   }
   get hits() {
     return this.#hits;
@@ -39,6 +39,6 @@ export default class ship {
   }
 
   isSunk() {
-    return this.#hits === this.#length;
+    return this.#hits === this.#size;
   }
 }
