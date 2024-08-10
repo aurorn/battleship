@@ -157,10 +157,10 @@ export default class GameBoard {
 
     const adjX = () => {
       const paddedY = y - 1;
-      const paddedLength =
+      const paddedlength =
         y + length <= this.#board[x].length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i += 1) {
+      for (let i = 0; i <= paddedlength; i += 1) {
         const previousX = findSquare({ x: x - 1, y: paddedY + i });
         const currentX = findSquare({ x, y: paddedY + i });
         const nextX = findSquare({ x: x + 1, y: paddedY + i });
@@ -173,10 +173,10 @@ export default class GameBoard {
 
     const adjY = () => {
       const paddedX = x - 1;
-      const paddedLength =
+      const paddedlength =
         x + length <= this.#board.length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i += 1) {
+      for (let i = 0; i <= paddedlength; i += 1) {
         const previousY = findSquare({ x: paddedX + i, y: y - 1 });
         const currentY = findSquare({ x: paddedX + i, y });
         const nextY = findSquare({ x: paddedX + i, y: y + 1 });
@@ -232,10 +232,10 @@ export default class GameBoard {
 
     const overlapsOnX = () => {
       const paddedY = y - 1;
-      const paddedLength =
+      const paddedlength =
         y + length <= this.#board[x].length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i += 1) {
+      for (let i = 0; i <= paddedlength; i += 1) {
         if (findShip({ x: x - 1, y: paddedY + i })) return true;
         if (findShip({ x, y: paddedY + i })) return true;
         if (findShip({ x: x + 1, y: paddedY + i })) return true;
@@ -246,10 +246,10 @@ export default class GameBoard {
 
     const overlapsOnY = () => {
       const paddedX = x - 1;
-      const paddedLength =
+      const paddedlength =
         x + length <= this.#board.length ? length + 1 : length;
 
-      for (let i = 0; i <= paddedLength; i += 1) {
+      for (let i = 0; i <= paddedlength; i += 1) {
         if (findShip({ x: paddedX + i, y: y - 1 })) return true;
         if (findShip({ x: paddedX + i, y })) return true;
         if (findShip({ x: paddedX + i, y: y + 1 })) return true;
