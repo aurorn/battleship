@@ -98,7 +98,8 @@ export default class GameBoard {
     }
 
     if (this.#board[x][y].isHit) {
-      return console.warn("This coordinate has already been hit.");
+      console.warn("This coordinate has already been hit.");
+      return { hitShip: false };
     }
 
     this.#board[x][y].isHit = true;

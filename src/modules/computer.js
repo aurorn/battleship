@@ -94,55 +94,72 @@ export default class Computer extends Player {
 
   #genDirectAtk(gameBoard) {
     const firstHit = this.#moves.find((move) => move.firstHit === true);
-    const lastMove = this.#moves.find[this.#moves.length - 1];
+    const lastMove = this.#moves[this.#moves.length - 1];
+
     if (gameBoard[lastMove.x][lastMove.y].ship) {
       lastMove.hitShip = true;
     }
+
     const hits = this.#moves.filter((move) => move.hitShip === true);
+
     const genAdjCoords = [Computer.#genRandAdjX, Computer.#genRandAdjY];
+
     if (hits.length < 2) {
       let randAdjCoords;
+
       while (!randAdjCoords) {
-        genAdjCoords[Math.random() < 0.5 ? 0 : 1](
+        randAdjCoords = genAdjCoords[Math.random() < 0.5 ? 0 : 1](
           gameBoard,
           firstHit.x,
           firstHit.y,
         );
       }
+
       this.#moves.push(randAdjCoords);
       return randAdjCoords;
     }
+
     const genDirectAdjMove = (callback) => {
       const startDir = callback(
         gameBoard,
         hits[hits.length - 1].x,
         hits[hits.length - 1].y,
       );
+
       if (startDir) {
         this.#moves.push(startDir);
         return startDir;
       }
+
       const revDir = callback(gameBoard, hits[0].x, hits[0].y);
       this.#moves.push(revDir);
       return revDir;
     };
+
     if (hits[0].x === hits[1].x) {
       return genDirectAdjMove(Computer.#genRandAdjY);
     }
+
     return genDirectAdjMove(Computer.#genRandAdjX);
   }
 
   genAtkCoords(gameBoard) {
     if (this.#focus && this.#focus.isSunk()) {
       this.#focus = false;
+
       this.#moves = [];
+
       this.#lastMove = Computer.genRandAtk(gameBoard);
       return this.#lastMove;
     }
+
     if (this.#focus) return this.#genDirectAtk(gameBoard);
+
     if (this.#lastMove && gameBoard[this.#lastMove.x][this.#lastMove.y].ship) {
       this.#focus = gameBoard[this.#lastMove.x][this.#lastMove.y].ship;
+
       this.#moves.push({ ...this.#lastMove, firstHit: true });
+
       return this.#genDirectAtk(gameBoard);
     }
     this.#lastMove = Computer.genRandAtk(gameBoard);
