@@ -1,33 +1,21 @@
+import Ship from "./ship";
+import Gameboard from "./gameBoard";
+
 export default class Player {
-  #gameBoard;
+  constructor (name) {
+    this.name = name
+    this.Gameboard = new Gameboard();
+    this.skiff = new Ship ("skiff", 2);
+    this.submarine = new Ship ("submarine", 3);
+    this.destroyer = new Ship ("destroyer", 3);
+    this.battleship = new Ship ("battleship", 4);
+    this.carrier = new Ship ("carrier", 5);
+  }
 
-  #score = 0;
-
-  constructor(gameBoard) {
-    if (!gameBoard) {
-      throw new TypeError("Players must have a gameBoard");
+  startAttack(column, row, enemyBoard) {
+    if (enemyBoard.board.isEmpty(column, row)) {
+      enemyBoard.receiveAttack(column, row);
     }
-
-    if (typeof gameBoard !== "object" || Array.isArray(gameBoard)) {
-      throw new TypeError("gameBoard must be valid");
-    }
-
-    this.#gameBoard = gameBoard;
-  }
-
-  get gameBoard() {
-    return this.#gameBoard;
-  }
-
-  get score() {
-    return this.#score;
-  }
-
-  increaseScore() {
-    this.#score += 1;
-  }
-
-  resetScore() {
-    this.#score = 0;
+    return;
   }
 }
