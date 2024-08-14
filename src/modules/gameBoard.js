@@ -1,268 +1,72 @@
-export default class GameBoard {
-  #board = [];
-
-  #ships = [];
-
-  get board() {
-    return this.#board;
-  }
-
-  get ships() {
-    return this.#ships;
-  }
-
-  createBoard() {
-    for (let i = 0; i < 10; i += 1) {
-      const x = [];
-      for (let j = 0; j < 10; j += 1) {
-        x.push({
-          isHit: false,
-        });
-      }
-      this.#board.push(x);
+export default class Gameboard {
+  constructor(player) {
+    this.player = player;
+    this.board = [];
+    for (let i = 0; i < 10; i++) {
+      this.board.push(["", "", "", "", "", "", "", "", "", ""]);
     }
   }
 
-  resetBoard() {
-    this.#board = [];
-    this.createBoard();
+  placeShip(column, row, ship) {
+    this.board[column][row] = ship;
   }
 
-  isValidPlacement(options) {
-    if (GameBoard.#isOOB(options)) return false;
-    if (this.#overlappingShip(options)) return false;
+  receiveAttack(column, row) {
+    if (this.board[column][row] !== "") {
+      this.board[column][row].hit();
+      this.board[column][row] = "hit";
+    } else {
+      this.board[column][row] = "miss";
+    }
+  }
 
+  logMisses() {
+    let missLog = [];
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        if (this.board[i][j] === "miss") {
+          missLog.push((i, j));
+        }
+      }
+    }
+    return missLog;
+  }
+
+  logHits() {
+    let hitLog = [];
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        if (
+          this.board[i][j] !== "hit" &&
+          this.board[i][j] !== "miss" &&
+          this.board[i][j] !== ""
+        ) {
+          hitLog.push((i, j));
+        }
+      }
+    }
     return true;
   }
 
-  placeShip(ship, options) {
-    if (this.#ships.length >= 5) {
-      throw new RangeError(
-        "You're trying to place more than 5 ships, not allowed.",
-      );
-    }
-
-    if (GameBoard.#isOOB(options)) {
-      throw new RangeError(
-        "The ship you're trying to place is overlapping other ships",
-      );
-    }
-
-    if (this.#overlappingShip(options)) {
-      throw new RangeError("Ship Overlaps with existing Ships");
-    }
-
-    const { x, y, axis, length } = options;
-    this.#ships.push({ shipInstance: ship, shipCoordinates: options });
-
-    for (let i = 0; i < length; i += 1) {
-      if (axis === "x") {
-        this.#board[x][y + i].ship = ship;
-      } else if (axis === "y") {
-        this.#board[x + i][y].ship = ship;
+  checkSunkShips() {
+    for (let i = 0; i < this.board.length; i++) {
+      for (let j = 0; j < this.board[i].length; j++) {
+        if (
+          this.board[i][j] !== "hit" &&
+          this.board[i][j] !== "miss" &&
+          this.board[i][j] !== ""
+        ) {
+          return false;
+        }
       }
     }
-  }
-
-  hasShip(id) {
-    const ship = this.#ships.find((_) => _.shipInstance.id === id);
-    if (ship) return true;
-    return false;
-  }
-
-  removeship(id) {
-    const ship = this.#ships.find((_) => _.shipInstance.id === id);
-
-    if (!ship) {
-      throw new RangeError(
-        "You can't remove a ship that doesn't exist. The id given must match an existing id.",
-      );
-    }
-    this.#ships.splice(this.#ships.indexOf(ship), 1);
-    this.#board.forEach((x) => {
-      x.forEach((y) => {
-        if (y.ship && y.ship.id === id) delete y.ship;
-      });
-    });
-  }
-
-  deleteShips() {
-    this.#ships = [];
-  }
-
-  receiveAttack(coordinates) {
-    const { x, y } = coordinates;
-
-    if (x > 10 || x < 0 || y > 10 || y < 0) {
-      throw new RangeError("Can't hit a target outside of bounds");
-    }
-
-    if (this.#board[x][y].isHit) {
-      console.warn("This coordinate has already been hit.");
-      return { hitShip: false };
-    }
-
-    this.#board[x][y].isHit = true;
-
-    if (this.#board[x][y].ship) {
-      this.#board[x][y].ship.hit();
-      this.hitAdjDiagSquare(x, y);
-
-      if (this.#board[x][y].ship.isSunk()) {
-        const { shipCoordinates } = this.#ships.find(
-          (ship) => ship.shipInstance.id === this.#board[x][y].ship.id,
-        );
-        this.hitAdjSquare(shipCoordinates);
-      }
-    }
-
-    this.updateLastHit({ x, y });
-
-    return {
-      hitShip: !!this.board[coordinates.x][coordinates.y].ship,
-    };
-  }
-
-  hitAdjDiagSquare(x, y) {
-    const directions = [
-      { x: x - 1, y: y - 1 },
-      { x: x - 1, y: y + 1 },
-      { x: x + 1, y: y - 1 },
-      { x: x + 1, y: y + 1 },
-    ];
-
-    directions.forEach((direction) => {
-      if (this.#board[direction.x] && this.#board[direction.x][direction.y]) {
-        this.#board[direction.x][direction.y].isHit = true;
-        this.#board[direction.x][direction.y].isCollateralDamage = true;
-      }
-    });
-  }
-
-  hitAdjSquare(options) {
-    const { x, y, axis, length } = options;
-
-    const findSquare = (coordinates) => {
-      const x = this.#board[coordinates.x];
-      if (!x) return false;
-      const y = x[coordinates.y];
-      if (!y) return false;
-      return y;
-    };
-
-    const hit = (location) => {
-      if (location.isHit) return;
-      location.isHit = true;
-      location.isCollateralDamage = true;
-    };
-
-    const adjX = () => {
-      const paddedY = y - 1;
-      const paddedlength =
-        y + length <= this.#board[x].length ? length + 1 : length;
-
-      for (let i = 0; i <= paddedlength; i += 1) {
-        const previousX = findSquare({ x: x - 1, y: paddedY + i });
-        const currentX = findSquare({ x, y: paddedY + i });
-        const nextX = findSquare({ x: x + 1, y: paddedY + i });
-
-        if (previousX) hit(previousX);
-        if (currentX) hit(currentX);
-        if (nextX) hit(nextX);
-      }
-    };
-
-    const adjY = () => {
-      const paddedX = x - 1;
-      const paddedlength =
-        x + length <= this.#board.length ? length + 1 : length;
-
-      for (let i = 0; i <= paddedlength; i += 1) {
-        const previousY = findSquare({ x: paddedX + i, y: y - 1 });
-        const currentY = findSquare({ x: paddedX + i, y });
-        const nextY = findSquare({ x: paddedX + i, y: y + 1 });
-
-        if (previousY) hit(previousY);
-        if (currentY) hit(currentY);
-        if (nextY) hit(nextY);
-      }
-    };
-
-    if (axis === "x") {
-      return adjX();
-    }
-
-    return adjY();
-  }
-
-  updateLastHit(coordinates) {
-    this.#board.forEach((x) => {
-      x.forEach((y) => {
-        if (y.lastHit) delete y.lastHit;
-      });
-    });
-
-    this.#board[coordinates.x][coordinates.y].lastHit = true;
-  }
-
-  isGameOver() {
-    const livingShip = this.#ships.find(
-      (ship) => ship.shipInstance.isSunk() === false,
-    );
-    if (livingShip) return false;
     return true;
   }
 
-  static #isOOB(options) {
-    const { x, y, axis, length } = options;
-    if (axis === "x" && y + length > 10) return true;
-    if (axis === "y" && x + length > 10) return true;
-    return false;
-  }
-
-  #overlappingShip(options) {
-    const { x, y, axis, length } = options;
-
-    const findShip = (coordinates) => {
-      const x = this.#board[coordinates.x];
-      if (!x) return false;
-      const y = x[coordinates.y];
-      if (!y) return false;
-      return y.ship;
-    };
-
-    const overlapsOnX = () => {
-      const paddedY = y - 1;
-      const paddedlength =
-        y + length <= this.#board[x].length ? length + 1 : length;
-
-      for (let i = 0; i <= paddedlength; i += 1) {
-        if (findShip({ x: x - 1, y: paddedY + i })) return true;
-        if (findShip({ x, y: paddedY + i })) return true;
-        if (findShip({ x: x + 1, y: paddedY + i })) return true;
-      }
-
-      return false;
-    };
-
-    const overlapsOnY = () => {
-      const paddedX = x - 1;
-      const paddedlength =
-        x + length <= this.#board.length ? length + 1 : length;
-
-      for (let i = 0; i <= paddedlength; i += 1) {
-        if (findShip({ x: paddedX + i, y: y - 1 })) return true;
-        if (findShip({ x: paddedX + i, y })) return true;
-        if (findShip({ x: paddedX + i, y: y + 1 })) return true;
-      }
-
-      return false;
-    };
-
-    if (axis === "x") {
-      return overlapsOnX();
+  emptyCell(column, row) {
+    if (this.board[column][row] === "") {
+      return true;
     }
-
-    return overlapsOnY();
+    return true;
   }
 }
