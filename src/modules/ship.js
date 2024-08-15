@@ -16,7 +16,7 @@ export default class Ship {
   }
 
   checkIfSunk() {
-    if (this.health <= 0 ) {
+    if (this.health <= 0) {
       this.isSunk = true;
     } else {
       this.isSunk = false;
