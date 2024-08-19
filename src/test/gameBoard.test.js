@@ -1,3 +1,4 @@
+import Gameboard from "../modules/gameBoard";
 import GameBoard from "../modules/gameBoard";
 import Ship from "../modules/ship";
 
@@ -27,4 +28,22 @@ test("Ship receives attack", () => {
     gameBoard.placeShip(3, 4, ship);
     gameBoard.receiveAttack(3, 4);
     expect(ship.healthCheck()).toBe(2);
+})
+
+test("Miss testing", () => {
+    let gameBoard = new GameBoard();
+    let ship = new Ship("cruiser", 3);
+    gameBoard.placeShip(3, 4, ship);
+    gameBoard.receiveAttack(3, 5);
+    expect(gameBoard.board[3][5]).toBe("miss");
+})
+
+test("Miss logging", () => {
+    let gameBoard = new GameBoard();
+    let ship = new Ship("cruiser", 3);
+    gameBoard.placeShip(3, 4, ship);
+    gameBoard.receiveAttack(3, 5);
+    gameBoard.receiveAttack(3, 6);
+    gameBoard.receiveAttack(3, 4);
+    expect(gameBoard.logMisses()).toEqual([(3, 5), (3, 6)]);
 })
