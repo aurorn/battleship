@@ -59,3 +59,18 @@ test("Multiple hits on ship", () => {
     gameBoard.receiveAttack(3, 6);
     expect(ship.isSunk).toBe(true);
 })
+test("check if all ships are sunk", () => {
+    let gameBoard = new GameBoard();
+    let ship = new Ship("cruiser", 3);
+    gameBoard.placeShip(3, 4, ship);
+    gameBoard.receiveAttack(3, 4);
+    expect(gameBoard.checkSunkShips()).toBe(true)
+})
+
+test("check all ships are not sunk", () => {
+    let gameBoard = new GameBoard();
+    let ship = new Ship("cruiser", 3);
+    gameBoard.placeShip(3, 4, ship);
+    gameBoard.receiveAttack(3, 5);
+    expect(gameBoard.checkSunkShips()).toBe(false);
+})
