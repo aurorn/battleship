@@ -47,3 +47,15 @@ test("Miss logging", () => {
     gameBoard.receiveAttack(3, 4);
     expect(gameBoard.logMisses()).toEqual([(3, 5), (3, 6)]);
 })
+
+test("Multiple hits on ship", () => {
+    let gameBoard = new GameBoard();
+    let ship = new Ship("cruiser", 3);
+    gameBoard.placeShip(3, 4, ship);
+    gameBoard.placeShip(3, 5, ship);
+    gameBoard.placeShip(3, 6, ship);
+    gameBoard.receiveAttack(3, 4);
+    gameBoard.receiveAttack(3, 5);
+    gameBoard.receiveAttack(3, 6);
+    expect(ship.isSunk).toBe(true);
+})
