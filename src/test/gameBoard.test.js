@@ -1,4 +1,3 @@
-import Gameboard from "../modules/gameBoard";
 import GameBoard from "../modules/gameBoard";
 import Ship from "../modules/ship";
 
