@@ -1,6 +1,6 @@
 #Battle Ship!
 
-This is a project from the [Odin Project](www.OdinProject.com) to create a Battle Ship application using TDD (Test Driven Development)
+This is a project from the [Odin Project](www.TheOdinProject.com) to create a Battle Ship application using TDD (Test Driven Development)
 
 Currently under construction
 
