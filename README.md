@@ -1,15 +1,7 @@
-# 🚀 Welcome to your new awesome project!
+#Battle Ship!
 
-This project has been created using **webpack-cli**, you can now run
+This is a project from the [Odin Project](www.OdinProject.com) to create a Battle Ship application using TDD (Test Driven Development)
 
-```
-npm run build
-```
+Currently under construction
 
-or
-
-```
-yarn build
-```
-
-to bundle your application
+Using npm, webpack, jest, eslint, babel and prettier.
