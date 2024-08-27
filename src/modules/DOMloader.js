@@ -1,11 +1,11 @@
 export default class DOM {
 
-    gameLoad() {
+    static gameLoad() {
         document.body.appendChild(this.createPlayerBoard());
         document.body.appendChild(this.createOpponentBoard());
     }
 
-    createPlayerBoard() {
+    static createPlayerBoard() {
         let playerBoard = document.createElement('div');
         playerBoard.classList.add('playerBoard');
 
@@ -43,7 +43,7 @@ export default class DOM {
         return playerBoard;
     }
 
-    createOpponentBoard() {
+    static createOpponentBoard() {
         let opponentBoard = document.createElement('div');
         opponentBoard.classList.add('opponentBoard');
 
