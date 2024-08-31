@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500;1,700;1,900&display=swap");
 
+:root {
+  --playerBoardSize: min(70vh, 70vw);
+  --playerBoardSize: min(70vh, 70vw);
+}
+
 body {
   font-family: "Montserrat";
   margin: 0;
@@ -56,7 +61,80 @@ body {
 
 .battle-app {
   background-color: rgb(50, 82, 50);
-  flex: 1;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  grid-template: 1fr / 5fr 4fr;
+  align-items: center;
+  justify-items: center;
+  height: 100vh;
+}
+
+.playerBoard {
+  grid-area: 1/1/2/2;
+  height: var(--playerBoardSize);
+  width: var(--playerBoardSize);
+  display: grid;
+  grid-template: 10% 1fr / 10% 1fr;
+}
+
+.compBoard {
+  grid-area: 1/2/2/3;
+  height: calc(var(--playerBoardSize) * .8);
+  width: calc(var(--playerBoardSize) * .8);
+  display: grid;
+  grid-template: 10% 1fr / 10% 1fr;
+}
+
+.rowMarkers {
+  grid-area: 2/1/3/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.columnMarkers {
+  grid-area: 1/2/2/3;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.rowLabel, 
+.columnLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.rowLabel {
+  height: 10%;
+  width: 100%;
+}
+
+.columnLabel {
+  height: 100%;
+  width: 10%;
+}
+
+.playerGameSquares,
+.compGameSquares {
+  grid-area: 2/2/3/3;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.playerSquare,
+.compSquare {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Footer */
