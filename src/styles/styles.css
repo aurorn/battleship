@@ -81,12 +81,15 @@ body {
 
 .compBoard {
   grid-area: 1/2/2/3;
-  height: calc(var(--playerBoardSize) * .8);
-  width: calc(var(--playerBoardSize) * .8);
+  height: calc(var(--playerBoardSize));
+  width: calc(var(--playerBoardSize));
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
 }
 
+.playerBoardTitle {
+
+}
 .rowMarkers {
   grid-area: 2/1/3/2;
   display: flex;
