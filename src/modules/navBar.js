@@ -2,8 +2,6 @@ export const createNavBar = () => {
   const navBar = document.createElement("div");
   navBar.className = "navBar";
 
-  document.body.prepend(navBar);
-
   const navLogo = document.createElement("div");
   navLogo.className = "nav-logo";
 
@@ -50,4 +48,6 @@ export const createNavBar = () => {
   navMenuBox.appendChild(gameLink);
   navMenuBox.appendChild(aboutLink);
   navMenuBox.appendChild(gitLink);
+
+  return navBar;
 };
