@@ -13,7 +13,7 @@ export default class Player {
   }
 
   startAttack(column, row, enemyBoard) {
-    if (enemyBoard.board.isEmpty(column, row)) {
+    if (enemyBoard.board.notGuessed(column, row)) {
       enemyBoard.receiveAttack(column, row);
     }
     return;
