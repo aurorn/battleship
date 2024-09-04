@@ -63,10 +63,10 @@ export default class Gameboard {
     return true;
   }
 
-  emptyCell(column, row) {
-    if (this.board[column][row] === "") {
+  notGuessed(column, row) {
+    if (this.board[column][row] !== "hit" && this.board[column][row] !== "miss") {
       return true;
     }
-    return true;
+    return false;
   }
 }
