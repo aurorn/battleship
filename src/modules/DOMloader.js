@@ -4,11 +4,19 @@ export default class DOM {
         battleApp.appendChild(this.createPlayerBoard());
         battleApp.appendChild(this.createCompBoard());
     }
-  
+
 
     static createPlayerBoard() {
     let playerBoard = document.createElement("div");
     playerBoard.classList.add("playerBoard");
+
+    let playerBoardTitle = document.createElement("div");
+        playerBoardTitle.classList.add("userBoardName");
+
+      let userBoard = document.createElement("h1");
+        userBoard.className = "user-board-name";
+        userBoard.innerText = "Player";
+      playerBoardTitle.appendChild(userBoard);
 
     let rowMarkers = document.createElement("div");
     rowMarkers.classList.add("rowMarkers");
@@ -50,6 +58,15 @@ export default class DOM {
    static createCompBoard() {
     let compBoard = document.createElement("div");
     compBoard.classList.add("compBoard");
+
+    let compBoardTitle = document.createElement("div");
+        compBoardTitle.classList.add("compBoardName");
+    
+      let compBoardName = document.createElement("h1");
+        compBoardName.className = "comp-board-name";
+        compBoardName.innerText = "Computer";
+
+      compBoardTitle.appendChild(compBoardName);
 
     let rowMarkers = document.createElement("div");
     rowMarkers.classList.add("rowMarkers");
