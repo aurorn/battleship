@@ -29,6 +29,12 @@ export default class Player {
         ) {
           let square = document.getElementById(`p${j}${i}`);
           square.textContent = "S";
+        } else if (this.Gameboard.board[i][j] === "miss") {
+          let square = document.getElementById(`p${j}${i}`);
+          square.textContent = "O";
+        } else if (this.Gameboard.board[i][j] === "hit") {
+          let square = document.getElementById(`p${j}${i}`);
+          square.textContent = "X";
         }
       }
     }
@@ -37,13 +43,12 @@ export default class Player {
   startCompBoard() {
     for (let i = 0; i < this.Gameboard.board.length; i++) {
       for (let j = 0; j < this.Gameboard.board[i].length; j++) {
-        if (
-          this.Gameboard.board[i][j] !== "hit" &&
-          this.Gameboard.board[i][j] !== "miss" &&
-          this.Gameboard.board[i][j] !== ""
-        ) {
+        if (this.Gameboard.board[i][j] === "miss") {
           let square = document.getElementById(`o${j}${i}`);
-          square.textContent = "S";
+          square.textContent = "O";
+        } else if (this.Gameboard.board[i][j] === "hit") {
+          let square = document.getElementById(`o${j}${i}`);
+          square.textContent = "X";
         }
       }
     }
