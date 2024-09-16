@@ -12,5 +12,15 @@ export default class Loop {
 
     shipPlacement.computerShipPlacement(compPlayer);
     compPlayer.startCompBoard();
+
+    let compSquares = document.querySelectorAll('.compSquare');
+    compSquares.forEach(square => {
+      square.addEventListener("click", () => {
+        let squareColumn = square.id.slice(2, 3);
+        let squareRow = square.id.slice(1, 2);
+        userPlayer.makeAttack(squareColumn, squareRow, compPlayer.Gameboard);
+        compPlayer.startCompBoard();
+      })
+    })
   }
 }
