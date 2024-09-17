@@ -20,6 +20,10 @@ export default class Loop {
         let squareRow = square.id.slice(1, 2);
         userPlayer.makeAttack(squareColumn, squareRow, compPlayer.Gameboard);
         compPlayer.startCompBoard();
+        let randColumn = Math.floor(Math.random() * 10);
+        let randRow = Math.floor(Math.random() * 10);
+        compPlayer.makeAttack(randColumn, randRow, userPlayer.Gameboard);
+        userPlayer.startPlayerBoard();
       })
     })
   }
