@@ -18,8 +18,12 @@ export default class Loop {
       square.addEventListener("click", () => {
         let squareColumn = square.id.slice(2, 3);
         let squareRow = square.id.slice(1, 2);
+        if (compPlayer.Gameboard.notGuessed(squareColumn, squareRow) === false) {
+          return;
+        }
         userPlayer.makeAttack(squareColumn, squareRow, compPlayer.Gameboard);
         compPlayer.startCompBoard();
+        
         let randColumn = Math.floor(Math.random() * 10);
         let randRow = Math.floor(Math.random() * 10);
         compPlayer.makeAttack(randColumn, randRow, userPlayer.Gameboard);
