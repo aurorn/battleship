@@ -16,6 +16,9 @@ export default class Loop {
     let compSquares = document.querySelectorAll('.compSquare');
     compSquares.forEach(square => {
       square.addEventListener("click", () => {
+        if (compPlayer.Gameboard.checkSunkShips() === true || userPlayer.Gameboard.checkSunkShips() === true) {
+          return;
+        }
         let squareColumn = square.id.slice(2, 3);
         let squareRow = square.id.slice(1, 2);
         if (compPlayer.Gameboard.notGuessed(squareColumn, squareRow) === false) {
@@ -23,7 +26,15 @@ export default class Loop {
         }
         userPlayer.makeAttack(squareColumn, squareRow, compPlayer.Gameboard);
         compPlayer.startCompBoard();
+        if (compPlayer.Gameboard.checkSunkShips() === true) {
+          alert("User Wins");
+        }
         
+        compPlayer.compMove(userPlayer);
+        if(userPlayer.Gameboard.checkSunkShips() === true) {
+          alert("Computer Wins")
+        }
+
         let randColumn = Math.floor(Math.random() * 10);
         let randRow = Math.floor(Math.random() * 10);
         compPlayer.makeAttack(randColumn, randRow, userPlayer.Gameboard);
