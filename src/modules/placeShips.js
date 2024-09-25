@@ -31,8 +31,8 @@ export default class ShipPlacement {
     player.Gameboard.placeShip(4, 6, player.submarine);
 
     player.Gameboard.placeShip(3, 1, player.destroyer);
-    player.Gameboard.placeShip(3, 1, player.destroyer);
-    player.Gameboard.placeShip(3, 1, player.destroyer);
+    player.Gameboard.placeShip(3, 2, player.destroyer);
+    player.Gameboard.placeShip(3, 3, player.destroyer);
 
     player.Gameboard.placeShip(0, 0, player.battleship);
     player.Gameboard.placeShip(0, 1, player.battleship);
