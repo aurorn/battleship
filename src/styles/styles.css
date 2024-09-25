@@ -86,6 +86,7 @@ body {
   width: var(--playerBoardSize);
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
+  position: relative;
 }
 
 .compBoard {
@@ -94,6 +95,7 @@ body {
   width: calc(var(--playerBoardSize));
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
+  position: relative;
 }
 
 .rowMarkers {
@@ -136,6 +138,7 @@ body {
   border: 1px solid black;
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.7);
+  position: relative;
 }
 
 .playerSquare,
@@ -144,6 +147,27 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.compGameSquares {
+  cursor: url(../images/gun-pointer.png) 16 16, auto;
+}
+
+.compSquare:hover {
+  box-shadow: 0 0 2px 2px red;
+  border-radius: 8px;
+}
+
+.targetHit {
+  position: absolute;
+  height: 130%;
+  width: 130%;
+}
+
+.targetMiss {
+  height: 80%;
+  width: 80%;
+  opacity: .8;
 }
 
 /* Footer */
