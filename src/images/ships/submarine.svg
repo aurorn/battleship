@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#808080;stroke:#000000;stroke-miterlimit:10;}
+	.st1{fill:#B3B3B3;stroke:#000000;stroke-miterlimit:10;}
+	.st2{fill:#FFFFFF;stroke:#000000;stroke-miterlimit:10;}
+	.st3{fill:#E6E7E8;stroke:#231F20;stroke-linecap:round;stroke-miterlimit:10;}
+	.st4{fill:#E6E7E8;stroke:#000000;stroke-linecap:round;stroke-miterlimit:10;}
+</style>
+<path class="st0" d="M69.5,206.5c-0.4-0.1-6.4-1.8-8-7c-1.6-5.1,1.6-11.5,8-14h131c0.7,0.4,5,2.9,6,8c1,4.9-1.4,10.1-6,13
+	C156.8,206.5,113.2,206.5,69.5,206.5z"/>
+<polygon class="st1" points="92.5,172.5 104,172.5 115.5,172.5 115.5,185.5 92.5,185.5 "/>
+<line class="st2" x1="104.5" y1="159.5" x2="104.5" y2="172.5"/>
+<circle class="st3" cx="104.6" cy="155.5" r="5.5"/>
+<path class="st2" d="M79.5,199.5"/>
+<ellipse class="st3" cx="79" cy="196.1" rx="5.7" ry="5.9"/>
+<ellipse class="st3" cx="100.4" cy="197.3" rx="4.1" ry="4.2"/>
+<ellipse class="st3" cx="115" cy="197.1" rx="4.1" ry="4.2"/>
+<ellipse class="st3" cx="128" cy="197.1" rx="4.1" ry="4.2"/>
+<polygon class="st4" points="79.5,210.5 196.5,210.5 198.3,206.5 76.2,206.5 "/>
+</svg>
