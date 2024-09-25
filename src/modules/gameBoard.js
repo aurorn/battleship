@@ -7,16 +7,16 @@ export default class Gameboard {
     }
   }
 
-  placeShip(column, row, ship) {
-    this.board[column][row] = ship;
+  placeShip(row, column, ship) {
+    this.board[row][column] = ship;
   }
 
-  receiveAttack(column, row) {
-    if (this.board[column][row] !== "") {
-      this.board[column][row].hit();
-      this.board[column][row] = "hit";
+  receiveAttack(row, column) {
+    if (this.board[row][column] !== "") {
+      this.board[row][column].hit();
+      this.board[row][column] = "hit";
     } else {
-      this.board[column][row] = "miss";
+      this.board[row][column] = "miss";
     }
   }
 
@@ -63,8 +63,8 @@ export default class Gameboard {
     return true;
   }
 
-  notGuessed(column, row) {
-    if (this.board[column][row] !== "hit" && this.board[column][row] !== "miss") {
+  notGuessed(row, column) {
+    if (this.board[row][column] !== "hit" && this.board[row][column] !== "miss") {
       return true;
     }
     return false;
