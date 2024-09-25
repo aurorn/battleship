@@ -1,5 +1,8 @@
 import Ship from "./ship";
 import Gameboard from "./gameBoard";
+import { boardImgs } from "./boardGameImg";
+import Hit from '../images/hit.svg';
+import Circle from '../images/circle.svg';
 
 export default class Player {
   constructor(name) {
@@ -49,13 +52,28 @@ export default class Player {
           this.Gameboard.board[i][j] !== ""
         ) {
           let square = document.getElementById(`p${j}${i}`);
-          square.textContent = "S";
+          let shipName = this.Gameboard.board[i][j].name.toLowerCase().replace(/\s/g, '-');
+          square.style.backgroundImage = `url(${boardImgs[`${shipName}.svg`]})`;
         } else if (this.Gameboard.board[i][j] === "miss") {
           let square = document.getElementById(`p${j}${i}`);
-          square.textContent = "O";
+          let missIMG = document.createElement('img');
+          missIMG.classList.add('targetMiss');
+          missIMG.src = Circle;
+          while (square.hasChildNodes()) {
+            square.removeChild(square.lastChild);
+          }
+          square.appendChild(missIMG);
+          square.style.background = 'none';
         } else if (this.Gameboard.board[i][j] === "hit") {
           let square = document.getElementById(`p${j}${i}`);
-          square.textContent = "X";
+          let hitIMG = document.createElement('img');
+          hitIMG.classList.add('targetHit');
+          hitIMG.src = Hit;
+          while (square.hasChildNodes()) {
+            square.removeChild(square.lastChild);
+          }
+          square.appendChild(hitIMG);
+          square.style.background = 'none';
         }
       }
     }
@@ -66,10 +84,23 @@ export default class Player {
       for (let j = 0; j < this.Gameboard.board[i].length; j++) {
         if (this.Gameboard.board[i][j] === "miss") {
           let square = document.getElementById(`o${j}${i}`);
-          square.textContent = "O";
+          let missIMG = document.createElement('img');
+          missIMG.classList.add('targetMiss');
+          missIMG.src = Circle;
+          while (square.hasChildNodes()) {
+            square.removeChild(square.lastChild);
+          }
+          square.appendChild(missIMG);
+          square.style.background = 'none';
         } else if (this.Gameboard.board[i][j] === "hit") {
           let square = document.getElementById(`o${j}${i}`);
-          square.textContent = "X";
+          let hitIMG = document.createElement('img');
+          hitIMG.classList.add('targetHit');
+          hitIMG.src = Hit;
+          while (square.hasChildNodes()) {
+            square.removeChild(square.lastChild);
+          }
+          square.appendChild(hitIMG);
         }
       }
     }
