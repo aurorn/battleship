@@ -2,7 +2,6 @@
 
 :root {
   --playerBoardSize: min(70vh, 70vw);
-  --playerBoardSize: min(70vh, 70vw);
 }
 
 body {
@@ -65,7 +64,6 @@ body {
   align-items: center;
   justify-items: center;
   background-color: rgb(50, 82, 50);
-
 }
 
 .battle-app {
@@ -98,6 +96,14 @@ body {
   position: relative;
 }
 
+.playerName,
+.compName {
+  position: absolute;
+  justify-self: center;
+  top: -80px;
+  font-size: 2rem;
+}
+
 .rowMarkers {
   grid-area: 2/1/3/2;
   display: flex;
@@ -111,7 +117,7 @@ body {
   justify-content: space-around;
   align-items: center;
 }
-.rowLabel, 
+.rowLabel,
 .columnLabel {
   display: flex;
   justify-content: center;
@@ -150,11 +156,13 @@ body {
 }
 
 .compGameSquares {
-  cursor: url(../images/gun-pointer.png) 16 16, auto;
+  cursor:
+    url(../images/gun-pointer.png) 16 16,
+    auto;
 }
 
 .compSquare:hover {
-  box-shadow: 0 0 2px 2px red;
+  box-shadow: 0 0 2px 2px rgb(255, 0, 149);
   border-radius: 8px;
 }
 
@@ -167,7 +175,79 @@ body {
 .targetMiss {
   height: 80%;
   width: 80%;
-  opacity: .8;
+  opacity: 0.8;
+}
+
+/* Start Screen */
+.overlay {
+  position: Fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.newGameSettings {
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.playerNameForm {
+  font-size: 2rem;
+}
+
+.playerNameSelection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10vh;
+}
+.nameInput label,
+.nameInput input {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-family: "black-ops";
+}
+.nameInput label {
+  margin-bottom: 8px;
+  font-size: 2rem;
+}
+.nameInput input {
+  appearance: none;
+  outline: none;
+  border-radius: 10px;
+  font-size: 3rem;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  background: none;
+}
+.nameInput input:hover {
+  box-shadow: inset 0 0 8px;
+}
+.nameInput input:focus {
+  box-shadow: inset 0 0 0 4px;
+}
+.startGame {
+  padding: 20px 40px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.startGame:hover {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
 }
 
 /* Footer */
