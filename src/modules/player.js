@@ -1,8 +1,8 @@
 import Ship from "./ship";
 import Gameboard from "./gameBoard";
 import { boardImgs } from "./boardGameImg";
-import Hit from '../images/hit.svg';
-import Circle from '../images/circle.svg';
+import Hit from "../images/hit.svg";
+import Circle from "../images/circle.svg";
 
 export default class Player {
   constructor(name) {
@@ -19,15 +19,15 @@ export default class Player {
     if (enemyBoard.checkSunkShips() === true) {
       return;
     }
-    if (enemyBoard.board.notGuessed(column, row)) {
+    if (enemyBoard.notGuessed(column, row)) {
       enemyBoard.receiveAttack(column, row);
     }
     return;
   }
 
   compMove(userPlayer) {
-    let notGuessed = []
-    for ( let i = 0; i < userPlayer.Gameboard.board.length; i++) {
+    let notGuessed = [];
+    for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
       for (let j = 0; i < userPlayer.Gameboard.board[i].length; j++) {
         if (userPlayer.Gameboard.notGuessed(i, j) === true) {
           notGuessed.push(`${j}${i}`);
@@ -35,7 +35,7 @@ export default class Player {
       }
     }
     if (notGuessed.length > 0 && this.Gameboard.checkSunkShips() === false) {
-      let randGuess = notGuessed[Math.floor(Math.random()*notGuessed.length)];
+      let randGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
       let randColumn = randGuess.slice(1, 2);
       let randRow = randGuess.slice(0, 1);
       this.startAttack(randColumn, randRow, userPlayer.Gameboard);
@@ -52,28 +52,30 @@ export default class Player {
           this.Gameboard.board[i][j] !== ""
         ) {
           let square = document.getElementById(`p${j}${i}`);
-          let shipName = this.Gameboard.board[i][j].name.toLowerCase().replace(/\s/g, '-');
+          let shipName = this.Gameboard.board[i][j].name
+            .toLowerCase()
+            .replace(/\s/g, "-");
           square.style.backgroundImage = `url(${boardImgs[`${shipName}.svg`]})`;
         } else if (this.Gameboard.board[i][j] === "miss") {
           let square = document.getElementById(`p${j}${i}`);
-          let missIMG = document.createElement('img');
-          missIMG.classList.add('targetMiss');
+          let missIMG = document.createElement("img");
+          missIMG.classList.add("targetMiss");
           missIMG.src = Circle;
           while (square.hasChildNodes()) {
             square.removeChild(square.lastChild);
           }
           square.appendChild(missIMG);
-          square.style.background = 'none';
+          square.style.background = "none";
         } else if (this.Gameboard.board[i][j] === "hit") {
           let square = document.getElementById(`p${j}${i}`);
-          let hitIMG = document.createElement('img');
-          hitIMG.classList.add('targetHit');
+          let hitIMG = document.createElement("img");
+          hitIMG.classList.add("targetHit");
           hitIMG.src = Hit;
           while (square.hasChildNodes()) {
             square.removeChild(square.lastChild);
           }
           square.appendChild(hitIMG);
-          square.style.background = 'none';
+          square.style.background = "none";
         }
       }
     }
@@ -84,18 +86,18 @@ export default class Player {
       for (let j = 0; j < this.Gameboard.board[i].length; j++) {
         if (this.Gameboard.board[i][j] === "miss") {
           let square = document.getElementById(`o${j}${i}`);
-          let missIMG = document.createElement('img');
-          missIMG.classList.add('targetMiss');
+          let missIMG = document.createElement("img");
+          missIMG.classList.add("targetMiss");
           missIMG.src = Circle;
           while (square.hasChildNodes()) {
             square.removeChild(square.lastChild);
           }
           square.appendChild(missIMG);
-          square.style.background = 'none';
+          square.style.background = "none";
         } else if (this.Gameboard.board[i][j] === "hit") {
           let square = document.getElementById(`o${j}${i}`);
-          let hitIMG = document.createElement('img');
-          hitIMG.classList.add('targetHit');
+          let hitIMG = document.createElement("img");
+          hitIMG.classList.add("targetHit");
           hitIMG.src = Hit;
           while (square.hasChildNodes()) {
             square.removeChild(square.lastChild);
