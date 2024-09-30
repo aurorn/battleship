@@ -7,16 +7,21 @@ export default class Gameboard {
     }
   }
 
-  placeShip(row, column, ship) {
-    this.board[row][column] = ship;
+  placeShip(column, row, ship) {
+    this.board[column][row] = ship;
   }
 
-  receiveAttack(row, column) {
-    if (this.board[row][column] !== "") {
-      this.board[row][column].hit();
-      this.board[row][column] = "hit";
+  receiveAttack(column, row) {
+    if (this.board[column][row] !== "") {
+      this.board[column][row].hit();
+      if (this.board[column][row].isSunk === true) {
+        alert(
+          `${this.player}'s ${this.board[column][row].name} has been sunk!`,
+        );
+      }
+      this.board[column][row] = "hit";
     } else {
-      this.board[row][column] = "miss";
+      this.board[column][row] = "miss";
     }
   }
 
@@ -63,8 +68,11 @@ export default class Gameboard {
     return true;
   }
 
-  notGuessed(row, column) {
-    if (this.board[row][column] !== "hit" && this.board[row][column] !== "miss") {
+  notGuessed(column, row) {
+    if (
+      this.board[column][row] !== "hit" &&
+      this.board[column][row] !== "miss"
+    ) {
       return true;
     }
     return false;
