@@ -1,10 +1,7 @@
-function importImg(r) {
-  let imgs = {};
-  r.keys().map((item) => {
-    imgs[item.replace("./", "")] = r(item);
-  });
-  return imgs;
+function importAll(r) {
+  let images = {};
+  r.keys().map((item) => { images[item.replace('./', '')] = r(item); });
+  return images;
 }
-
-export const boardImgs = () =>
-  importImg(require.context("../images/ships", false, /\.svg$/));
+const boardImgs = importAll(require.context('../images/ships', false, /\.svg$/));
+export { boardImgs };
