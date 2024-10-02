@@ -36,7 +36,4 @@ function computerShipPlacement(player) {
   player.Gameboard.placeShip(8, 0, player.skiff);
   player.Gameboard.placeShip(9, 0, player.skiff);
 }
-export { 
-  playerShipPlacement,
-  computerShipPlacement,
-};
+export { playerShipPlacement, computerShipPlacement };
