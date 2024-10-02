@@ -11,6 +11,7 @@ function initLoad() {
 
   document.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
+      event.preventDefault();
       startGameHandler();
     }
   });
