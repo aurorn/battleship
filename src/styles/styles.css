@@ -71,7 +71,7 @@ body {
   position: relative;
   background-position: center;
   background-size: cover;
-  display: grid;
+  display: none;
   grid-template: 1fr / 4fr 4fr;
   align-items: center;
   justify-items: center;
@@ -179,36 +179,31 @@ body {
 }
 
 /* Start Screen */
-.overlay {
-  position: Fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
 
+.gameName {
+  font-size: 4rem;
+  position: relative;
+  top: -25%;
+}
 .newGameSettings {
-  padding: 2rem;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: rgb(50, 82, 50);
+  height: 100vh;
 }
 
 .playerNameForm {
   font-size: 2rem;
+  gap: 29px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .playerNameSelection {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 10vh;
 }
 .nameInput label,
@@ -216,20 +211,18 @@ body {
   display: block;
   width: 100%;
   text-align: center;
-  font-family: "black-ops";
 }
 .nameInput label {
   margin-bottom: 8px;
   font-size: 2rem;
 }
 .nameInput input {
-  appearance: none;
   outline: none;
   border-radius: 10px;
   font-size: 3rem;
   padding-top: 4px;
   padding-bottom: 4px;
-  background: none;
+  background-color: beige;
 }
 .nameInput input:hover {
   box-shadow: inset 0 0 8px;
@@ -237,15 +230,38 @@ body {
 .nameInput input:focus {
   box-shadow: inset 0 0 0 4px;
 }
-.startGame {
+.startGame,
+.restartGame {
   padding: 20px 40px;
   font-size: 2rem;
   cursor: pointer;
 }
-.startGame:hover {
+.startGame:hover,
+.restartGame:hover {
   background-color: white;
   color: black;
 }
+
+.alertBox {
+  position: Fixed;
+  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.20);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15vh;
+}
+
+.alertTextBox {
+  font-size: 4rem;
+  text-shadow: 0 0 6px white;
+  color: rgb(167, 0, 0);
+  font-weight: 700;
+}
+
 .hidden {
   display: none;
 }
