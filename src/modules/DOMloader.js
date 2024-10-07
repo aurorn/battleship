@@ -1,9 +1,3 @@
-function gameLoad(userName) {
-  const battleApp = document.querySelector(".battle-app");
-  battleApp.appendChild(createPlayerBoard(userName));
-  battleApp.appendChild(createCompBoard());
-}
-
 function createPlayerBoard(userName) {
   let playerBoard = document.createElement("div");
   playerBoard.classList.add("playerBoard");
@@ -96,4 +90,4 @@ function createCompBoard() {
   return compBoard;
 }
 
-export { gameLoad };
+export { createPlayerBoard, createCompBoard };

@@ -1,21 +1,18 @@
 function newGame() {
-  let overlay = document.createElement("div");
-  overlay.classList.add("overlay");
-
   let newGame = document.createElement("div");
   newGame.classList.add("newGameSettings");
-  overlay.appendChild(newGame);
+  document.body.appendChild(newGame);
 
   let gameName = document.createElement("header");
   gameName.classList.add("gameName");
   gameName.textContent = "Battleship";
   newGame.prepend(gameName);
 
-  let playerName = document.createElement("form");
-  playerName.classList.add("playerNameForm");
-  playerName.setAttribute("action", "");
-  playerName.setAttribute("autocomplete", "off");
-  newGame.appendChild(playerName);
+  let playerNameForm = document.createElement("form");
+  playerNameForm.classList.add("playerNameForm");
+  playerNameForm.setAttribute("action", "");
+  playerNameForm.setAttribute("autocomplete", "off");
+  newGame.appendChild(playerNameForm);
 
   let nameInput = document.createElement("div");
   nameInput.classList.add("nameInput");
@@ -32,6 +29,8 @@ function newGame() {
   input.id = "userPlayerName";
   input.maxLength = "12";
   nameInput.appendChild(input);
+  let playerName = localStorage.getItem("battleshipPlayerName") || "";
+  input.value = playerName;
 
   let playBtn = document.createElement("button");
   playBtn.classList.add("startGame");
@@ -41,4 +40,5 @@ function newGame() {
 
   return newGame;
 }
+
 export { newGame };

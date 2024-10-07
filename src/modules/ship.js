@@ -1,4 +1,4 @@
-export default class Ship {
+class Ship {
   constructor(name, length) {
     this.name = name;
     this.length = length;
@@ -8,14 +8,14 @@ export default class Ship {
 
   hit() {
     this.health -= 1;
-    this.checkIfSunk();
+    this.checkSunk();
   }
 
-  healthCheck() {
+  checkHealth() {
     return this.health;
   }
 
-  checkIfSunk() {
+  checkSunk() {
     if (this.health <= 0) {
       this.isSunk = true;
     } else {
@@ -31,3 +31,5 @@ export default class Ship {
     }
   }
 }
+
+export { Ship }

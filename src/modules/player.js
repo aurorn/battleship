@@ -1,120 +1,4 @@
-/*import Ship from "./ship";
-import Gameboard from "./gameBoard";
-import { boardImgs } from "./boardGameImg";
-import Hit from "../images/hit.svg";
-import Circle from "../images/circle.svg";
-import { alertGameOver } from "./alertScreens";
-
-export default class Player {
-  constructor(name) {
-    this.name = name;
-    this.turn = false;
-    this.Gameboard = new Gameboard();
-    this.skiff = new Ship("skiff", 2);
-    this.submarine = new Ship("submarine", 3);
-    this.destroyer = new Ship("destroyer", 3);
-    this.battleship = new Ship("battleship", 4);
-    this.carrier = new Ship("carrier", 5);
-  }
-
-  startAttack(column, row, enemyBoard) {
-    if (enemyBoard.checkSunkShips() === true || this.turn === false) {
-      return;
-    }
-    if (enemyBoard.notGuessed(column, row)) {
-      enemyBoard.receiveAttack(column, row);
-    }
-    return;
-  }
-
-  compMove(userPlayer) {
-    let notGuessed = [];
-    for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
-      for (let j = 0; i < userPlayer.Gameboard.board[i].length; j++) {
-        if (userPlayer.Gameboard.notGuessed(i, j) === true) {
-          notGuessed.push(`${j}${i}`);
-        }
-      }
-    }
-    if (notGuessed.length > 0 && this.Gameboard.checkSunkShips() === false) {
-      let randGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
-      let randColumn = randGuess.slice(1, 2);
-      let randRow = randGuess.slice(0, 1);
-      this.startAttack(randColumn, randRow, userPlayer.Gameboard);
-      userPlayer.startPlayerBoard();
-    }
-  }
-
-  startPlayerBoard() {
-    for (let i = 0; i < this.Gameboard.board.length; i++) {
-      for (let j = 0; j < this.Gameboard.board[i].length; j++) {
-        if (
-          this.Gameboard.board[i][j] !== "hit" &&
-          this.Gameboard.board[i][j] !== "miss" &&
-          this.Gameboard.board[i][j] !== ""
-        ) {
-          let square = document.getElementById(`p${j}${i}`);
-          let shipName = this.Gameboard.board[i][j].name
-            .toLowerCase()
-            .replace(/\s/g, "-");
-          square.style.backgroundImage = `url(${boardImgs[`${shipName}.svg`]})`;
-        } else if (this.Gameboard.board[i][j] === "miss") {
-          let square = document.getElementById(`p${j}${i}`);
-          let missIMG = document.createElement("img");
-          missIMG.classList.add("targetMiss");
-          missIMG.src = Circle;
-          while (square.hasChildNodes()) {
-            square.removeChild(square.lastChild);
-          }
-          square.appendChild(missIMG);
-          square.style.background = "none";
-        } else if (this.Gameboard.board[i][j] === "hit") {
-          let square = document.getElementById(`p${j}${i}`);
-          let hitIMG = document.createElement("img");
-          hitIMG.classList.add("targetHit");
-          hitIMG.src = Hit;
-          while (square.hasChildNodes()) {
-            square.removeChild(square.lastChild);
-          }
-          square.appendChild(hitIMG);
-          square.style.background = "none";
-        }
-      }
-    }
-  }
-
-  startCompBoard() {
-    for (let i = 0; i < this.Gameboard.board.length; i++) {
-      for (let j = 0; j < this.Gameboard.board[i].length; j++) {
-        if (this.Gameboard.board[i][j] === "miss") {
-          let square = document.getElementById(`o${j}${i}`);
-          let missIMG = document.createElement("img");
-          missIMG.classList.add("targetMiss");
-          missIMG.src = Circle;
-          while (square.hasChildNodes()) {
-            square.removeChild(square.lastChild);
-          }
-          square.appendChild(missIMG);
-          square.style.background = "none";
-        } else if (this.Gameboard.board[i][j] === "hit") {
-          let square = document.getElementById(`o${j}${i}`);
-          let hitIMG = document.createElement("img");
-          hitIMG.classList.add("targetHit");
-          hitIMG.src = Hit;
-          while (square.hasChildNodes()) {
-            square.removeChild(square.lastChild);
-          }
-          square.appendChild(hitIMG);
-        }
-      }
-    }
-  }
-
-  winGame() {
-    alertGameOver(this.name);
-  }
-}*/
-import Ship from "./ship";
+import { Ship } from "./ship";
 import Gameboard from "./gameBoard";
 import { alertGameOver } from "./alertScreens";
 
@@ -128,6 +12,7 @@ export default class Player {
     this.destroyer = new Ship("destroyer", 3);
     this.battleship = new Ship("battleship", 4);
     this.carrier = new Ship("carrier", 5);
+    this.allShips = [this.carrier, this.battleship, this.destroyer, this.submarine, this.skiff];
   }
 
   startAttack(column, row, enemyBoard) {
@@ -140,7 +25,7 @@ export default class Player {
     return;
   }
 
-  compMove(userPlayer) {
+  /*compMove(userPlayer) {
     let notGuessed = [];
     for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
       for (let j = 0; j < userPlayer.Gameboard.board[i].length; j++) {
@@ -156,7 +41,148 @@ export default class Player {
       this.startAttack(randColumn, randRow, userPlayer.Gameboard);
       userPlayer.startPlayerBoard();
     }
-  }
+  }*/
+
+    compMove(userPlayer) {
+      if (this.Gameboard.checkAllShipsSunk() === true) {
+        return;
+      }
+      let woundedShip = userPlayer.allShips.some(ship => {
+        return ship.partialHit();
+      })
+      if (woundedShip === true) {
+        let hitLocations = [];
+        for (let column = 0; column < userPlayer.Gameboard.board.length; column++) {
+          for (let row = 0; row < userPlayer.Gameboard.board[column].length; row++) {
+            if (userPlayer.Gameboard.board[column][row] === 'hit') {
+              hitLocations.push(`${column}${row}`);
+            }
+          }
+        }
+        let woundedLocations = [];
+        hitLocations.forEach(location => {
+          let hitColumn = Number(location.slice(0, 1));
+          let hitRow = Number(location.slice(1, 2));
+          if (hitColumn === 0 && hitRow === 0) {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitColumn === 0 && hitRow === 9) {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitColumn === 9 && hitRow === 0) {
+            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitColumn === 9 && hitRow === 9) {
+            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitColumn === 0) {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitColumn === 9) {
+            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitRow === 0) {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
+              woundedLocations.push(location);
+            }
+          } else if (hitRow === 9) {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          } else {
+            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
+                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
+              woundedLocations.push(location);
+            }
+          }
+        })
+        let randomWound = woundedLocations[Math.floor(Math.random() * woundedLocations.length)];
+        let woundColumn = Number(randomWound.slice(0, 1));
+        let woundRow = Number(randomWound.slice(1, 2));
+        let woundGuesses = [];
+        if (woundColumn === 0 && woundRow === 0) {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+        } else if (woundColumn === 0 && woundRow === 9) {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        } else if (woundColumn === 9 && woundRow === 0) {
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+        } else if (woundColumn === 9 && woundRow === 9) {
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        } else if (woundColumn === 0) {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        } else if (woundColumn === 9) {
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        } else if (woundRow === 0) {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+        } else if (woundRow === 9) {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        } else {
+          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
+          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
+          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
+        }      
+        let validGuesses = woundGuesses.filter(item => {
+          let itemColumn = item.slice(0, 1);
+          let itemRow = item.slice(1, 2);
+          return userPlayer.Gameboard.notGuessed(itemColumn, itemRow);
+        })
+  
+        console.log(validGuesses);
+  
+        let randomWoundGuess = validGuesses[Math.floor(Math.random() * validGuesses.length)];
+        this.makeAttack(randomWoundGuess.slice(0, 1), randomWoundGuess.slice(1, 2), userPlayer.Gameboard)
+        userPlayer.renderPlayerBoard();
+      } else {
+        let notGuessed = []
+        for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
+          for (let j = 0; j < userPlayer.Gameboard.board[i].length; j++) {
+            if (userPlayer.Gameboard.notGuessed(i, j) === true) {
+              notGuessed.push(`${i}${j}`);
+            }
+          }
+        }
+        if (notGuessed.length > 0) {
+          let randomGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
+          let randomColumn = randomGuess.slice(0, 1);
+          let randomRow = randomGuess.slice(1, 2);
+          this.makeAttack(randomColumn, randomRow, userPlayer.Gameboard);
+          userPlayer.renderPlayerBoard();
+        }
+      }
+    }
 
   startPlayerBoard() {
     for (let i = 0; i < this.Gameboard.board.length; i++) {
@@ -167,13 +193,12 @@ export default class Player {
           this.Gameboard.board[i][j] !== "miss" &&
           this.Gameboard.board[i][j] !== ""
         ) {
-          // Assign a color based on the ship type
           let shipColor = this.getShipColor(this.Gameboard.board[i][j].name);
           square.style.backgroundColor = shipColor;
         } else if (this.Gameboard.board[i][j] === "miss") {
-          square.style.backgroundColor = "lightblue"; // Miss color
+          square.style.backgroundColor = "black";
         } else if (this.Gameboard.board[i][j] === "hit") {
-          square.style.backgroundColor = "red"; // Hit color
+          square.style.backgroundColor = "red";
         }
       }
     }
@@ -184,16 +209,15 @@ export default class Player {
       for (let j = 0; j < this.Gameboard.board[i].length; j++) {
         let square = document.getElementById(`o${j}${i}`);
         if (this.Gameboard.board[i][j] === "miss") {
-          square.style.backgroundColor = "lightblue"; // Miss color
+          square.style.backgroundColor = "black";
         } else if (this.Gameboard.board[i][j] === "hit") {
-          square.style.backgroundColor = "red"; // Hit color
+          square.style.backgroundColor = "red";
         }
       }
     }
   }
 
   getShipColor(shipName) {
-    // Define colors for each ship
     switch (shipName.toLowerCase()) {
       case "skiff":
         return "green";
@@ -206,7 +230,7 @@ export default class Player {
       case "carrier":
         return "orange";
       default:
-        return "gray"; // Default ship color
+        return "gray";
     }
   }
 

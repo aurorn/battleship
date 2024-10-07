@@ -1,3 +1,5 @@
+import { alertSunkShips } from "./alertScreens";
+
 export default class Gameboard {
   constructor(player) {
     this.player = player;
@@ -15,9 +17,7 @@ export default class Gameboard {
     if (this.board[column][row] !== "") {
       this.board[column][row].hit();
       if (this.board[column][row].isSunk === true) {
-        alert(
-          `${this.player}'s ${this.board[column][row].name} has been sunk!`,
-        );
+        alertSunkShips(this.player, this.board[column][row].name);
       }
       this.board[column][row] = "hit";
     } else {
@@ -72,6 +72,24 @@ export default class Gameboard {
     if (
       this.board[column][row] !== "hit" &&
       this.board[column][row] !== "miss"
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  isEmpty(column, row) {
+    if (this.board[column][row] === "") {
+      return true;
+    }
+    return false;
+  }
+
+  containsShip(column, row) {
+    if (
+      this.board[column][row] !== "hit" &&
+      this.board[column][row] !== "miss" &&
+      this.board[column][row] !== ""
     ) {
       return true;
     }

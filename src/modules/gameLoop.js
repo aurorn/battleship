@@ -1,5 +1,7 @@
 import Player from "./player";
-import { playerShipPlacement, computerShipPlacement } from "./placeShips";
+import { playerShipPlacement } from "./playerShips";
+import { computerShipPlacement } from "./compShips";
+import { alertGameStart } from "./alertScreens";
 
 function gameLoop(userName) {
   const userPlayer = new Player(userName);
@@ -15,11 +17,14 @@ function gameLoop(userName) {
 }
 
 function playTurn(userPlayer, compPlayer) {
+  alertGameStart();
   let compSquares = document.querySelectorAll(".compSquare");
+
   compSquares.forEach((square) => {
     square.addEventListener("click", () => {
       let squareColumn = square.id.slice(2, 3);
       let squareRow = square.id.slice(1, 2);
+
       if (
         compPlayer.Gameboard.notGuessed(squareColumn, squareRow) === false ||
         compPlayer.Gameboard.checkSunkShips() === true ||
@@ -28,38 +33,28 @@ function playTurn(userPlayer, compPlayer) {
       ) {
         return;
       }
+
       userPlayer.startAttack(squareColumn, squareRow, compPlayer.Gameboard);
-      userPlayer.turn === false;
-      compPlayer.turn === true;
+      userPlayer.turn = false;
+      compPlayer.turn = true;
+
       compPlayer.startCompBoard();
-      if (compPlayer.Gameboard.checkSunkShips() === true) {
+      if (compPlayer.Gameboard.checkSunkShips()) {
         alert(`${userPlayer.name} Wins!`);
-      }
-      compPlayer.compMove(userPlayer);
-      if (userPlayer.Gameboard.checkSunkShips() === true) {
-        userPlayer.winGame();
+        return;
       }
 
-      setTimeout(function() {
-        if (document.querySelector('.alertBox').classList.contains('hidden')) {
-          setTimeout(function() {
-            compPlayer.compMove(userPlayer);
-            userPlayer.turn = true;
-            compPlayer.turn = false;
-            if (userPlayer.Gameboard.checkSunkShips() === true) {
-              compPlayer.winGame();
-            }
-          }, 0)    
-        } else {
-          setTimeout(function() {
-            compPlayer.compMove(userPlayer);
-            userPlayer.turn = true;
-            compPlayer.turn = false;
-            if (userPlayer.Gameboard.checkSunkShips() === true) {
-              compPlayer.winGame();
-            }
-          }, 1250)
-        }}, 500);  
+      setTimeout(() => {
+        if (!userPlayer.Gameboard.checkSunkShips()) {
+          compPlayer.compMove(userPlayer);
+          userPlayer.startPlayerBoard();
+          userPlayer.turn = true;
+          compPlayer.turn = false;
+        }
+        if (userPlayer.Gameboard.checkSunkShips()) {
+          compPlayer.winGame();
+        }
+      }, 1); //Time delay for the Comp to attack
     });
   });
 }

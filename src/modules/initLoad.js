@@ -1,4 +1,3 @@
-import { gameLoad } from "./DOMloader";
 import { gameLoop } from "./gameLoop";
 import { newGame, customAlerts } from "./alertScreens";
 
@@ -22,13 +21,12 @@ function startGameHandler() {
   if (playerName === "") {
     playerName = "User Player";
   }
-  window.localStorage.setItem('battleshipPlayerName', `${playerName}`);
+  window.localStorage.setItem("battleshipPlayerName", `${playerName}`);
   let newGameSettings = document.querySelector(".newGameSettings");
   document.body.removeChild(newGameSettings);
   let showApp = document.querySelector(".battle-app");
   showApp.style.display = "grid";
 
-  gameLoad(playerName);
   gameLoop(playerName);
 }
 
