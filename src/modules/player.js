@@ -12,7 +12,13 @@ export default class Player {
     this.destroyer = new Ship("destroyer", 3);
     this.battleship = new Ship("battleship", 4);
     this.carrier = new Ship("carrier", 5);
-    this.allShips = [this.carrier, this.battleship, this.destroyer, this.submarine, this.skiff];
+    this.allShips = [
+      this.carrier,
+      this.battleship,
+      this.destroyer,
+      this.submarine,
+      this.skiff,
+    ];
   }
 
   startAttack(column, row, enemyBoard) {
@@ -26,25 +32,7 @@ export default class Player {
   }
 
   /*compMove(userPlayer) {
-    let notGuessed = [];
-    for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
-      for (let j = 0; j < userPlayer.Gameboard.board[i].length; j++) {
-        if (userPlayer.Gameboard.notGuessed(i, j) === true) {
-          notGuessed.push(`${j}${i}`);
-        }
-      }
-    }
-    if (notGuessed.length > 0 && this.Gameboard.checkSunkShips() === false) {
-      let randGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
-      let randColumn = randGuess.slice(1, 2);
-      let randRow = randGuess.slice(0, 1);
-      this.startAttack(randColumn, randRow, userPlayer.Gameboard);
-      userPlayer.startPlayerBoard();
-    }
-  }*/
-
-    compMove(userPlayer) {
-      if (this.Gameboard.checkAllShipsSunk() === true) {
+      if (this.Gameboard.checkSunkShips() === true) {
         return;
       }
       let woundedShip = userPlayer.allShips.some(ship => {
@@ -163,8 +151,8 @@ export default class Player {
         console.log(validGuesses);
   
         let randomWoundGuess = validGuesses[Math.floor(Math.random() * validGuesses.length)];
-        this.makeAttack(randomWoundGuess.slice(0, 1), randomWoundGuess.slice(1, 2), userPlayer.Gameboard)
-        userPlayer.renderPlayerBoard();
+        this.startAttack(randomWoundGuess.slice(0, 1), randomWoundGuess.slice(1, 2), userPlayer.Gameboard)
+        userPlayer.startPlayerBoard();
       } else {
         let notGuessed = []
         for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
@@ -178,11 +166,109 @@ export default class Player {
           let randomGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
           let randomColumn = randomGuess.slice(0, 1);
           let randomRow = randomGuess.slice(1, 2);
-          this.makeAttack(randomColumn, randomRow, userPlayer.Gameboard);
-          userPlayer.renderPlayerBoard();
+          this.startAttack(randomColumn, randomRow, userPlayer.Gameboard);
+          userPlayer.startPlayerBoard();
+        }
+      }
+    }*/
+
+  compMove(userPlayer) {
+    if (this.Gameboard.checkSunkShips()) {
+      return;
+    }
+
+    const findAdjacentCells = (column, row) => {
+      const adjacent = [];
+      const directions = [
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1],
+      ];
+
+      directions.forEach(([dx, dy]) => {
+        const newCol = column + dx;
+        const newRow = row + dy;
+        if (newCol >= 0 && newCol < 10 && newRow >= 0 && newRow < 10) {
+          adjacent.push(`${newCol}${newRow}`);
+        }
+      });
+
+      return adjacent;
+    };
+
+    const getValidGuesses = (locations) => {
+      return locations.filter((location) => {
+        const [col, row] = [Number(location[0]), Number(location[1])];
+        return userPlayer.Gameboard.notGuessed(col, row);
+      });
+    };
+
+    let woundedShip = userPlayer.allShips.some((ship) => ship.partialHit());
+
+    if (woundedShip) {
+      let hitLocations = [];
+      // Collect hit locations
+      for (let col = 0; col < 10; col++) {
+        for (let row = 0; row < 10; row++) {
+          if (userPlayer.Gameboard.board[col][row] === "hit") {
+            hitLocations.push(`${col}${row}`);
+          }
+        }
+      }
+
+      // Find wounded ship locations with nearby ships
+      let woundedLocations = hitLocations.filter((location) => {
+        const [col, row] = [Number(location[0]), Number(location[1])];
+        const adjacent = findAdjacentCells(col, row);
+        return adjacent.some((adjLoc) => {
+          const [adjCol, adjRow] = [Number(adjLoc[0]), Number(adjLoc[1])];
+          return userPlayer.Gameboard.containsShip(adjCol, adjRow);
+        });
+      });
+
+      // Pick a random wounded location and attack adjacent
+      if (woundedLocations.length > 0) {
+        let randomWound =
+          woundedLocations[Math.floor(Math.random() * woundedLocations.length)];
+        const [woundCol, woundRow] = [
+          Number(randomWound[0]),
+          Number(randomWound[1]),
+        ];
+        const adjacentCells = findAdjacentCells(woundCol, woundRow);
+        const validGuesses = getValidGuesses(adjacentCells);
+
+        if (validGuesses.length > 0) {
+          let randomWoundGuess =
+            validGuesses[Math.floor(Math.random() * validGuesses.length)];
+          this.startAttack(
+            randomWoundGuess[0],
+            randomWoundGuess[1],
+            userPlayer.Gameboard,
+          );
+          userPlayer.startPlayerBoard();
+          return;
         }
       }
     }
+
+    // No wounded ships, attack a random unguessed location
+    let notGuessed = [];
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        if (userPlayer.Gameboard.notGuessed(i, j)) {
+          notGuessed.push(`${i}${j}`);
+        }
+      }
+    }
+
+    if (notGuessed.length > 0) {
+      let randomGuess =
+        notGuessed[Math.floor(Math.random() * notGuessed.length)];
+      this.startAttack(randomGuess[0], randomGuess[1], userPlayer.Gameboard);
+      userPlayer.startPlayerBoard();
+    }
+  }
 
   startPlayerBoard() {
     for (let i = 0; i < this.Gameboard.board.length; i++) {
