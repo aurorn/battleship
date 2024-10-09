@@ -16,7 +16,7 @@ function playerShipPlacement(player) {
     ];
     let index = 0;
 
-    showHelperText(ships[index]);
+    showHelpText(ships[index]);
 
     let playerSquares = document.querySelectorAll(".playerSquare");
     playerSquares.forEach((square) => {
@@ -36,7 +36,7 @@ function playerShipPlacement(player) {
             box.classList.remove("validPlacement");
           });
           if (index < 5) {
-            showHelperText(ships[index]);
+            showHelpText(ships[index]);
           } else {
             runGame(player);
             resolve();
@@ -47,7 +47,7 @@ function playerShipPlacement(player) {
   });
 }
 
-function showHelperText(ship) {
+function showHelpText(ship) {
   let helperText = document.querySelector(".helpText");
   helperText.textContent = `Select the location of your ${ship.name}`;
 }
@@ -55,13 +55,13 @@ function showHelperText(ship) {
 function runGame(player) {
   const battleApp = document.querySelector(".battle-app");
   let helper = document.querySelector(".shipPlacer");
-  document.body.removeChild(helper);
+  battleApp.removeChild(helper);
 
   let playerBoard = document.querySelector(".playerBoard");
-  document.body.removeChild(playerBoard);
+  battleApp.removeChild(playerBoard);
 
   battleApp.appendChild(createPlayerBoard(player.name));
-  document.body.appendChild(createCompBoard());
+  battleApp.appendChild(createCompBoard());
 }
 
 function placementHover(player, ship, square) {

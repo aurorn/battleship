@@ -6,7 +6,7 @@ export default class Player {
   constructor(name) {
     this.name = name;
     this.turn = false;
-    this.Gameboard = new Gameboard();
+    this.Gameboard = new Gameboard(this);
     this.skiff = new Ship("skiff", 2);
     this.submarine = new Ship("submarine", 3);
     this.destroyer = new Ship("destroyer", 3);
@@ -21,156 +21,15 @@ export default class Player {
     ];
   }
 
-  startAttack(column, row, enemyBoard) {
-    if (enemyBoard.checkSunkShips() === true || this.turn === false) {
+  startAttack(column, row, compBoard) {
+    if (compBoard.checkSunkShips() === true || this.turn === false) {
       return;
     }
-    if (enemyBoard.notGuessed(column, row)) {
-      enemyBoard.receiveAttack(column, row);
+    if (compBoard.notGuessed(column, row)) {
+      compBoard.receiveAttack(column, row);
     }
     return;
   }
-
-  /*compMove(userPlayer) {
-      if (this.Gameboard.checkSunkShips() === true) {
-        return;
-      }
-      let woundedShip = userPlayer.allShips.some(ship => {
-        return ship.partialHit();
-      })
-      if (woundedShip === true) {
-        let hitLocations = [];
-        for (let column = 0; column < userPlayer.Gameboard.board.length; column++) {
-          for (let row = 0; row < userPlayer.Gameboard.board[column].length; row++) {
-            if (userPlayer.Gameboard.board[column][row] === 'hit') {
-              hitLocations.push(`${column}${row}`);
-            }
-          }
-        }
-        let woundedLocations = [];
-        hitLocations.forEach(location => {
-          let hitColumn = Number(location.slice(0, 1));
-          let hitRow = Number(location.slice(1, 2));
-          if (hitColumn === 0 && hitRow === 0) {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitColumn === 0 && hitRow === 9) {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitColumn === 9 && hitRow === 0) {
-            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitColumn === 9 && hitRow === 9) {
-            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitColumn === 0) {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitColumn === 9) {
-            if (userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitRow === 0) {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1)) {
-              woundedLocations.push(location);
-            }
-          } else if (hitRow === 9) {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          } else {
-            if (userPlayer.Gameboard.containsShip(hitColumn + 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn - 1, hitRow) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow + 1) ||
-                userPlayer.Gameboard.containsShip(hitColumn, hitRow - 1)) {
-              woundedLocations.push(location);
-            }
-          }
-        })
-        let randomWound = woundedLocations[Math.floor(Math.random() * woundedLocations.length)];
-        let woundColumn = Number(randomWound.slice(0, 1));
-        let woundRow = Number(randomWound.slice(1, 2));
-        let woundGuesses = [];
-        if (woundColumn === 0 && woundRow === 0) {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-        } else if (woundColumn === 0 && woundRow === 9) {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        } else if (woundColumn === 9 && woundRow === 0) {
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-        } else if (woundColumn === 9 && woundRow === 9) {
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        } else if (woundColumn === 0) {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        } else if (woundColumn === 9) {
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        } else if (woundRow === 0) {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-        } else if (woundRow === 9) {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        } else {
-          woundGuesses.push(`${woundColumn + 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn - 1}${woundRow}`);
-          woundGuesses.push(`${woundColumn}${woundRow + 1}`);
-          woundGuesses.push(`${woundColumn}${woundRow - 1}`);
-        }      
-        let validGuesses = woundGuesses.filter(item => {
-          let itemColumn = item.slice(0, 1);
-          let itemRow = item.slice(1, 2);
-          return userPlayer.Gameboard.notGuessed(itemColumn, itemRow);
-        })
-  
-        console.log(validGuesses);
-  
-        let randomWoundGuess = validGuesses[Math.floor(Math.random() * validGuesses.length)];
-        this.startAttack(randomWoundGuess.slice(0, 1), randomWoundGuess.slice(1, 2), userPlayer.Gameboard)
-        userPlayer.startPlayerBoard();
-      } else {
-        let notGuessed = []
-        for (let i = 0; i < userPlayer.Gameboard.board.length; i++) {
-          for (let j = 0; j < userPlayer.Gameboard.board[i].length; j++) {
-            if (userPlayer.Gameboard.notGuessed(i, j) === true) {
-              notGuessed.push(`${i}${j}`);
-            }
-          }
-        }
-        if (notGuessed.length > 0) {
-          let randomGuess = notGuessed[Math.floor(Math.random() * notGuessed.length)];
-          let randomColumn = randomGuess.slice(0, 1);
-          let randomRow = randomGuess.slice(1, 2);
-          this.startAttack(randomColumn, randomRow, userPlayer.Gameboard);
-          userPlayer.startPlayerBoard();
-        }
-      }
-    }*/
 
   compMove(userPlayer) {
     if (this.Gameboard.checkSunkShips()) {
@@ -208,7 +67,6 @@ export default class Player {
 
     if (woundedShip) {
       let hitLocations = [];
-      // Collect hit locations
       for (let col = 0; col < 10; col++) {
         for (let row = 0; row < 10; row++) {
           if (userPlayer.Gameboard.board[col][row] === "hit") {
@@ -217,7 +75,6 @@ export default class Player {
         }
       }
 
-      // Find wounded ship locations with nearby ships
       let woundedLocations = hitLocations.filter((location) => {
         const [col, row] = [Number(location[0]), Number(location[1])];
         const adjacent = findAdjacentCells(col, row);
@@ -227,7 +84,6 @@ export default class Player {
         });
       });
 
-      // Pick a random wounded location and attack adjacent
       if (woundedLocations.length > 0) {
         let randomWound =
           woundedLocations[Math.floor(Math.random() * woundedLocations.length)];
@@ -252,7 +108,6 @@ export default class Player {
       }
     }
 
-    // No wounded ships, attack a random unguessed location
     let notGuessed = [];
     for (let i = 0; i < 10; i++) {
       for (let j = 0; j < 10; j++) {
@@ -321,6 +176,7 @@ export default class Player {
   }
 
   winGame() {
+    console.log("winGame called for player:", this.name);
     alertGameOver(this.name);
   }
 }

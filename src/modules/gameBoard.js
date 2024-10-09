@@ -2,6 +2,9 @@ import { alertSunkShips } from "./alertScreens";
 
 export default class Gameboard {
   constructor(player) {
+    if (!player || !player.name) {
+      console.error("Invalid player object:", player);
+    }
     this.player = player;
     this.board = [];
     for (let i = 0; i < 10; i++) {
@@ -17,14 +20,13 @@ export default class Gameboard {
     if (this.board[column][row] !== "") {
       this.board[column][row].hit();
       if (this.board[column][row].isSunk === true) {
-        alertSunkShips(this.player, this.board[column][row].name);
+        alertSunkShips(this.player.name, this.board[column][row].name);
       }
       this.board[column][row] = "hit";
     } else {
       this.board[column][row] = "miss";
     }
   }
-
   logMisses() {
     let missLog = [];
     for (let i = 0; i < this.board.length; i++) {

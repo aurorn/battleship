@@ -3,14 +3,18 @@ import { playerShipPlacement } from "./playerShips";
 import { computerShipPlacement } from "./compShips";
 import { alertGameStart } from "./alertScreens";
 
-function gameLoop(userName) {
+async function gameLoop(userName) {
   const userPlayer = new Player(userName);
-  playerShipPlacement(userPlayer);
+  await playerShipPlacement(userPlayer);
   userPlayer.startPlayerBoard();
   userPlayer.turn = true;
 
   const compPlayer = new Player("Computer");
-  computerShipPlacement(compPlayer);
+  computerShipPlacement(compPlayer, compPlayer.carrier);
+  computerShipPlacement(compPlayer, compPlayer.battleship);
+  computerShipPlacement(compPlayer, compPlayer.destroyer);
+  computerShipPlacement(compPlayer, compPlayer.submarine);
+  computerShipPlacement(compPlayer, compPlayer.skiff);
   compPlayer.startCompBoard();
 
   playTurn(userPlayer, compPlayer);
@@ -40,7 +44,7 @@ function playTurn(userPlayer, compPlayer) {
 
       compPlayer.startCompBoard();
       if (compPlayer.Gameboard.checkSunkShips()) {
-        alert(`${userPlayer.name} Wins!`);
+        userPlayer.winGame();
         return;
       }
 
