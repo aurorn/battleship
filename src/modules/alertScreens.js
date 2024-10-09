@@ -54,8 +54,8 @@ function shipPlacer() {
   });
   placerDiv.appendChild(btn);
 
-  let text = document.createElement('p');
-  text.classList.add('helpText');
+  let text = document.createElement("p");
+  text.classList.add("helpText");
   placerDiv.appendChild(text);
 
   return placerDiv;
@@ -79,16 +79,17 @@ function alertGameStart() {
   let textBox = document.querySelector(".alertTextBox");
   textBox.textContent = "Click an Enemy Square to Attack!";
 
-  setTimeout(hideAlert, 3000);
+  setTimeout(hideAlert, 1000);
 }
 
-function alertSunkShips(player, shipName) {
+function alertSunkShips(playerName, shipName) {
+
   let alertBox = document.querySelector(".alertBox");
   alertBox.classList.remove("hidden");
 
   let alertTextBox = document.querySelector(".alertTextBox");
-  alertTextBox.textContent = `${player}'s ${shipName} has been sunk!`;
-  setTimeout(hideAlert, 1500);
+  alertTextBox.textContent = `${playerName}'s ${shipName} has been sunk!`;
+  setTimeout(hideAlert, 1000);
 }
 
 function alertGameOver(playerName) {
@@ -98,6 +99,11 @@ function alertGameOver(playerName) {
 
   let alertTextBox = document.querySelector(".alertTextBox");
   alertTextBox.textContent = `${playerName} wins!`;
+
+  let existingRestartBtn = alertBox.querySelector(".restartGame");
+  if (existingRestartBtn) {
+    alertBox.removeChild(existingRestartBtn);
+  }
 
   let restartBtn = document.createElement("button");
   restartBtn.classList.add("restartGame");
