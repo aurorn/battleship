@@ -1,5 +1,6 @@
 import { createPlayerBoard, createCompBoard } from "./DOMloader";
 import { shipPlacer } from "./alertScreens";
+import { playerLogBox, computerLogBox } from "./logBoxes";
 
 function playerShipPlacement(player) {
   return new Promise((resolve) => {
@@ -60,8 +61,13 @@ function runGame(player) {
   let playerBoard = document.querySelector(".playerBoard");
   battleApp.removeChild(playerBoard);
 
+  battleApp.style.gridTemplate = '';
+  battleApp.style.gridTemplateRows = '1fr';
+  battleApp.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  battleApp.appendChild(playerLogBox());
   battleApp.appendChild(createPlayerBoard(player.name));
   battleApp.appendChild(createCompBoard());
+  battleApp.appendChild(computerLogBox());
 }
 
 function placementHover(player, ship, square) {

@@ -2,6 +2,7 @@ import { Ship } from "./ship";
 import Gameboard from "./gameBoard";
 import { alertGameOver } from "./alertScreens";
 
+
 export default class Player {
   constructor(name) {
     this.name = name;
@@ -176,7 +177,6 @@ export default class Player {
   }
 
   winGame() {
-    console.log("winGame called for player:", this.name);
     alertGameOver(this.name);
   }
 }

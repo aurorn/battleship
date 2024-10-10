@@ -2,9 +2,6 @@ import { alertSunkShips } from "./alertScreens";
 
 export default class Gameboard {
   constructor(player) {
-    if (!player || !player.name) {
-      console.error("Invalid player object:", player);
-    }
     this.player = player;
     this.board = [];
     for (let i = 0; i < 10; i++) {
