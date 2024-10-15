@@ -61,9 +61,9 @@ function runGame(player) {
   let playerBoard = document.querySelector(".playerBoard");
   battleApp.removeChild(playerBoard);
 
-  battleApp.style.gridTemplate = '';
-  battleApp.style.gridTemplateRows = '1fr';
-  battleApp.style.gridTemplateColumns = 'repeat(4, 1fr)';
+  battleApp.style.gridTemplate = "";
+  battleApp.style.gridTemplateRows = "1fr";
+  battleApp.style.gridTemplateColumns = "repeat(4, 1fr)";
   battleApp.appendChild(playerLogBox());
   battleApp.appendChild(createPlayerBoard(player.name));
   battleApp.appendChild(createCompBoard());

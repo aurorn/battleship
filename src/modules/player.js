@@ -2,7 +2,6 @@ import { Ship } from "./ship";
 import Gameboard from "./gameBoard";
 import { alertGameOver } from "./alertScreens";
 
-
 export default class Player {
   constructor(name) {
     this.name = name;
@@ -22,14 +21,44 @@ export default class Player {
     ];
   }
 
-  startAttack(column, row, compBoard) {
+  logCompMove(column, row, result) {
+    const compMoveBoxLog = document.querySelector(".compMoveBoxLog");  
+    if (compMoveBoxLog) {
+      const compLogEntry = document.createElement("p");
+      compLogEntry.textContent = `Computer attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      compMoveBoxLog.appendChild(compLogEntry);
+      while (compMoveBoxLog.children.length > 1) {
+        compMoveBoxLog.removeChild(compMoveBoxLog.firstChild);
+      }
+    } 
+  }
+  
+  logPlayerMove(column, row, result) {
+    const playerMoveBoxLog = document.querySelector(".playerMoveBoxLog");
+    if (playerMoveBoxLog) {
+      const playerLogEntry = document.createElement("p");
+      playerLogEntry.textContent = `${this.name} attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      playerMoveBoxLog.appendChild(playerLogEntry);
+      while (playerMoveBoxLog.children.length > 1) {
+        playerMoveBoxLog.removeChild(playerMoveBoxLog.firstChild);
+      }
+    } 
+  }
+
+  startAttack(column, row, compBoard, isPlayer = true) {
     if (compBoard.checkSunkShips() === true || this.turn === false) {
       return;
     }
     if (compBoard.notGuessed(column, row)) {
-      compBoard.receiveAttack(column, row);
+      const result = compBoard.receiveAttack(column, row);
+      if (isPlayer) {
+        this.logPlayerMove(column, row, result);
+      } else {
+        this.logCompMove(column, row, result);
+      }
+      return result;
     }
-    return;
+    return null;
   }
 
   compMove(userPlayer) {
@@ -99,9 +128,10 @@ export default class Player {
           let randomWoundGuess =
             validGuesses[Math.floor(Math.random() * validGuesses.length)];
           this.startAttack(
-            randomWoundGuess[0],
-            randomWoundGuess[1],
+            Number(randomWoundGuess[0]),
+            Number(randomWoundGuess[1]),
             userPlayer.Gameboard,
+            false,
           );
           userPlayer.startPlayerBoard();
           return;
@@ -121,7 +151,13 @@ export default class Player {
     if (notGuessed.length > 0) {
       let randomGuess =
         notGuessed[Math.floor(Math.random() * notGuessed.length)];
-      this.startAttack(randomGuess[0], randomGuess[1], userPlayer.Gameboard);
+      const result = this.startAttack(
+        Number(randomGuess[0]),
+        Number(randomGuess[1]),
+        userPlayer.Gameboard,
+        false,
+      );
+      this.logCompMove(Number(randomGuess[0]), Number(randomGuess[1]), result);
       userPlayer.startPlayerBoard();
     }
   }

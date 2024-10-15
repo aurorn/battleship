@@ -83,7 +83,6 @@ function alertGameStart() {
 }
 
 function alertSunkShips(playerName, shipName) {
-
   let alertBox = document.querySelector(".alertBox");
   alertBox.classList.remove("hidden");
 

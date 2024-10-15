@@ -20,8 +20,10 @@ export default class Gameboard {
         alertSunkShips(this.player.name, this.board[column][row].name);
       }
       this.board[column][row] = "hit";
+      return "hit";
     } else {
       this.board[column][row] = "miss";
+      return "miss";
     }
   }
   logMisses() {

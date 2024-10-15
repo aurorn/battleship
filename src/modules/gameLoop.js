@@ -58,7 +58,7 @@ function playTurn(userPlayer, compPlayer) {
         if (userPlayer.Gameboard.checkSunkShips()) {
           compPlayer.winGame();
         }
-      }, 1); //Time delay for the Comp to attack
+      }, 500); // Time delay for the Comp to attack
     });
   });
 }

@@ -1,46 +1,35 @@
 function playerLogBox() {
-    const playerLogBox = document.createElement('div');
-    playerLogBox.classList.add('playerLogBox');
-    
-    const playerLogTitle = document.createElement('h3');
-    playerLogTitle.classList.add('playerLogTitle');
-    playerLogTitle.textContent = 'Player Log';
+  const playerLogBox = document.createElement("div");
+  playerLogBox.classList.add("playerLogBox");
 
-    const playerMoveBoxLog = document.createElement('div');
-    playerMoveBoxLog.classList.add('playerMoveBoxLog');
+  const playerLogTitle = document.createElement("h3");
+  playerLogTitle.classList.add("playerLogTitle");
+  playerLogTitle.textContent = "Player Log";
 
-    const playerLog = document.createElement('p');
-    playerLog.classList.add('playerLog');
-    playerLog.textContent = 'Player log';
+  const playerMoveBoxLog = document.createElement("div");
+  playerMoveBoxLog.classList.add("playerMoveBoxLog");
 
-    playerLogBox.appendChild(playerLogTitle);
-    playerLogBox.appendChild(playerMoveBoxLog);
-    playerMoveBoxLog.appendChild(playerLog);
+  playerLogBox.appendChild(playerLogTitle);
+  playerLogBox.appendChild(playerMoveBoxLog);
 
-    return playerLogBox;
-
+  return playerLogBox;
 }
 
 function computerLogBox() {
-    const computerLogBox = document.createElement('div');
-    computerLogBox.classList.add('computerLogBox');
+  const computerLogBox = document.createElement("div");
+  computerLogBox.classList.add("computerLogBox");
 
-    const computerLogTitle = document.createElement('h3');
-    computerLogTitle.classList.add('computerLogTitle');
-    computerLogTitle.textContent = 'Computer Log';
+  const computerLogTitle = document.createElement("h3");
+  computerLogTitle.classList.add("computerLogTitle");
+  computerLogTitle.textContent = "Computer Log";
 
-    const compMoveBoxLog = document.createElement('div');
-    compMoveBoxLog.classList.add('compMoveBoxLog');
+  const compMoveBoxLog = document.createElement("div");
+  compMoveBoxLog.classList.add("compMoveBoxLog");
 
-    const computerLog = document.createElement('p');
-    computerLog.classList.add('computerLog');
-    computerLog.textContent = 'Computer log';
-    
-    computerLogBox.appendChild(computerLogTitle);
-    computerLogBox.appendChild(compMoveBoxLog);
-    compMoveBoxLog.appendChild(computerLog);
+  computerLogBox.appendChild(computerLogTitle);
+  computerLogBox.appendChild(compMoveBoxLog);
 
-    return computerLogBox;
+  return computerLogBox;
 }
 
 export { playerLogBox, computerLogBox };

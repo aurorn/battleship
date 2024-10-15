@@ -81,7 +81,6 @@ body {
 }
 
 .playerBoard {
-
   height: var(--playerBoardSize);
   width: var(--playerBoardSize);
   display: grid;
@@ -108,8 +107,8 @@ body {
   border: 1px solid black;
   border-radius: 4px;
   padding: 10px;
-  width: 50%;
-  height: 30%;
+  width: 60%;
+  height: 40%;
 }
 
 .playerLogTitle,
@@ -128,8 +127,8 @@ body {
   border: 1px solid black;
   border-radius: 4px;
   padding: 10px;
-  width: 50%;
-  height: 30%;
+  width: 60%;
+  height: 40%;
 }
 
 .compMoveBoxLog {
@@ -151,15 +150,11 @@ body {
 }
 
 .playerLog {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 5px;
 }
 
 .computerLog {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 5px;
 }
 
 .playerName,
@@ -378,10 +373,7 @@ body {
   display: none;
 }
 
-
 /* Log box */
-
-
 
 /* Footer */
 
