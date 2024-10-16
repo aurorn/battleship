@@ -21,12 +21,26 @@ export default class Player {
     ];
   }
 
+  typeWriter(text, element, speed = 30) {
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, speed);
+      }
+    }
+    type();
+  }
+
   logCompMove(column, row, result) {
     const compMoveBoxLog = document.querySelector(".compMoveBoxLog");  
     if (compMoveBoxLog) {
       const compLogEntry = document.createElement("p");
-      compLogEntry.textContent = `Computer attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      compLogEntry.classList.add("logEntry");
       compMoveBoxLog.appendChild(compLogEntry);
+      const text = `Computer attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      this.typeWriter(text, compLogEntry);
       while (compMoveBoxLog.children.length > 1) {
         compMoveBoxLog.removeChild(compMoveBoxLog.firstChild);
       }
@@ -37,13 +51,16 @@ export default class Player {
     const playerMoveBoxLog = document.querySelector(".playerMoveBoxLog");
     if (playerMoveBoxLog) {
       const playerLogEntry = document.createElement("p");
-      playerLogEntry.textContent = `${this.name} attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      playerLogEntry.classList.add("logEntry");
       playerMoveBoxLog.appendChild(playerLogEntry);
+      const text = `Player attacked [${column}, ${row}] - ${result === "hit" ? "Hit!" : "Miss!"}`;
+      this.typeWriter(text, playerLogEntry);
       while (playerMoveBoxLog.children.length > 1) {
         playerMoveBoxLog.removeChild(playerMoveBoxLog.firstChild);
-      }
-    } 
+    }
   }
+}
+
 
   startAttack(column, row, compBoard, isPlayer = true) {
     if (compBoard.checkSunkShips() === true || this.turn === false) {

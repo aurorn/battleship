@@ -2,6 +2,9 @@
 
 :root {
   --playerBoardSize: min(60vh, 60vw);
+  --gameBackgroundColour: rgba(12, 12, 12);
+  --outlineColour: rgba(19, 165, 0);
+  --textColour:rgba(19, 165, 0);
 }
 
 body {
@@ -63,18 +66,16 @@ body {
   grid-template: 1fr / 1fr 1fr;
   align-items: center;
   justify-items: center;
-  background-color: rgb(50, 82, 50);
+  background-color: var(--gameBackgroundColour);
 }
 
 .battle-app {
-  background-color: rgb(50, 82, 50);
+  background-color: var(--gameBackgroundColour);
   position: relative;
   background-position: center;
   background-size: cover;
   display: none;
   grid-template: 1fr / 4fr 4fr;
-  /*grid-template-rows: 1fr;
-  grid-template-columns: repeat(4, 1fr);*/
   align-items: center;
   justify-items: center;
   height: 100vh;
@@ -103,12 +104,16 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border: 1px solid black;
+  background-color: var(--gameBackgroundColour);
+  border: 2px solid var(--outlineColour);
   border-radius: 4px;
   padding: 10px;
   width: 60%;
   height: 40%;
+}
+
+.logEntry {
+  color: var(--textColour)
 }
 
 .playerLogTitle,
@@ -116,6 +121,7 @@ body {
   display: flex;
   justify-content: center;
   font-weight: 700;
+  color: var(--textColour)
 }
 
 .computerLogBox {
@@ -123,8 +129,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border: 1px solid black;
+  background-color: var(--gameBackgroundColour);
+  border: 2px solid var(--outlineColour);
   border-radius: 4px;
   padding: 10px;
   width: 60%;
@@ -163,6 +169,7 @@ body {
   justify-self: center;
   top: -80px;
   font-size: 2rem;
+  color: var(--textColour)
 }
 
 .rowMarkers {
@@ -189,11 +196,13 @@ body {
 .rowLabel {
   height: 10%;
   width: 100%;
+  color: var(--textColour)
 }
 
 .columnLabel {
   height: 100%;
   width: 10%;
+  color: var(--textColour)
 }
 
 .playerGameSquares,
@@ -202,15 +211,15 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  border: 1px solid black;
+  border: 2px solid black;
   border-radius: 4px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: var(--gameBackgroundColour);
   position: relative;
 }
 
 .playerSquare,
 .compSquare {
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--outlineColour);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -223,7 +232,8 @@ body {
 }
 
 .compSquare:hover {
-  box-shadow: 0 0 2px 2px rgb(0, 0, 0);
+  background-color: rosybrown;
+  
 }
 
 .targetHit {
@@ -250,13 +260,14 @@ body {
   top: -25%;
   font-weight: bold;
   text-transform: uppercase;
+  color: var(--textColour)
 }
 .newGameSettings {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(50, 82, 50);
+  background-color: var(--gameBackgroundColour);
   height: 100vh;
 }
 
@@ -277,6 +288,7 @@ body {
 .compName {
   font-size: 2rem;
   font-weight: 700;
+  color: var(--textColour)
 }
 
 .nameInput label,
@@ -288,6 +300,7 @@ body {
 .nameInput label {
   margin-bottom: 8px;
   font-size: 2rem;
+  color: var(--textColour)
 }
 .nameInput input {
   outline: none;
