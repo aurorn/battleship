@@ -29,6 +29,11 @@ export const createNavBar = () => {
 
   navTitleContainer.appendChild(navTitle);
 
+  const hamburger = document.createElement("div");
+  hamburger.className = "hamburger";
+  hamburger.innerHTML = "&#9776;";
+  navBar.appendChild(hamburger);
+
   const gameLink = document.createElement("a");
   const aboutLink = document.createElement("a");
   const gitLink = document.createElement("a");

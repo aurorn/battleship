@@ -9,7 +9,6 @@ function initLoad() {
   scanlines.appendChild(newGame());
   battleApp.appendChild(customAlerts());
 
-  // Call createIntroScreen to load the intro screen
   createIntroScreen();
 
   let startGame = document.querySelector(".startGame");
@@ -35,8 +34,13 @@ function startGameHandler() {
   let showApp = document.querySelector(".battle-app");
   showApp.style.display = "grid";
 
-  const navBar = createNavBar();
+  if (window.innerWidth <= 768) {
+    showApp.style.display = "flex";
+  } else {
+    showApp.style.display = "grid";
+  }
 
+  const navBar = createNavBar();
   scanlines.prepend(navBar);
 
   gameLoop(playerName);

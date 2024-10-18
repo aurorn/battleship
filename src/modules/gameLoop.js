@@ -4,10 +4,17 @@ import { computerShipPlacement } from "./compShips";
 import { alertGameStart } from "./alertScreens";
 
 async function gameLoop(userName) {
+  
   const userPlayer = new Player(userName);
   await playerShipPlacement(userPlayer);
+  if (window.innerWidth <= 768) {
+    document.querySelector(".playerBoard").style.display = "none"; 
+    userPlayer.startPlayerBoard();
+  } else {
   userPlayer.startPlayerBoard();
+  }
   userPlayer.turn = true;
+  
 
   const compPlayer = new Player("Computer");
   computerShipPlacement(compPlayer, compPlayer.carrier);

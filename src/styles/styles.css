@@ -75,6 +75,12 @@ body {
   font-size: 20px;
 }
 
+.hamburger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+}
+
 .nav-menu-link:hover {
   color: rgb(97, 129, 97);
 }
@@ -372,20 +378,6 @@ body {
   transform: scale(0.8);
 }
 
-/*.alertBox {
-  position: Fixed;
-  z-index: 1001;
-  width: 100vw;
-  height: 100vh;
-  border-color: 2px solid var(--outlineColour);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15vh;
-  
-}*/
-
 .alertBox {
   position: fixed;
   top: 50%;
@@ -533,6 +525,22 @@ body {
 .gameBtnText:hover {
   text-decoration: underline;
 }
+
+.caret {
+  display: inline-block;
+  width: 10px;
+  height: 2rem; /* Match the font size of the text */
+  background-color: var(--textColour);
+  margin-left: 5px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 /* scan-lines */
 
 .scanlines {
@@ -585,5 +593,160 @@ body {
 @keyframes scanlines {
   0% {
     background-position: 0 50%;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .battle-app {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .playerBoard, .compBoard {
+    width: 90vw;
+    height: 90vw;
+    margin: 10px 0;
+  }
+
+  .shipPlacer {
+    gap: 0;
+    margin: 0;
+  }
+  
+  .helpBtn {
+    margin-top: 30px;
+  }
+  
+  .helpText {
+    font-size: 1.5rem;
+  }
+
+  .playerBoard {
+    margin-left: -15px;
+  }
+  
+  .playerLogBox {
+    display: none;
+  }
+
+  .compBoard {
+    margin: 0;
+    margin-left: -15px;
+  }
+
+  .playerLogBox, .computerLogBox {
+    width: 70%;
+    height: auto;
+  }
+
+  .playerMoveLogBox, .compMoveLogBox {
+    align-items: center;
+  }
+
+  .newGameSettings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--gameBackgroundColour);
+    background-size: cover;
+    background-size: 100% 4px;
+    height: 100vh;
+    filter: blur(.7px);
+  }
+
+  .nameInput {
+    width: 90vw;
+  }
+
+  .introScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--gameBackgroundColour);
+    color: var(--textColour);
+    font-family: "Courier New", monospace;
+    filter: blur(.7px);
+  }
+
+  .introText, .gameBtnText {
+    text-align: center;
+  }
+  
+  .gameBtn {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  .gameName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    position: relative;
+    top: -25%;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--textColour);
+    font-family: "Courier New", monospace;
+  }
+
+  .startGame, .restartGame, .helpBtn {
+    padding: 20px 40px;
+    font-size: 2rem;
+    cursor: pointer;
+    background-color: var(--gameBackgroundColour);
+    color: var(--textColour);
+    border: 2px solid var(--outlineColour);
+    font-family: "Courier New", monospace;
+    transition: transform 0.1s ease;
+  }
+
+  .restartGame {
+    margin-left: 15px;
+  }
+  
+  .startGame:hover, .restartGame:hover, .helpBtn:hover {
+    border: 2px solid var(--outlineColour);
+    color: var(--textColour);
+    font-family: "Courier New", monospace;
+    box-shadow: inset 0 0 8px;
+  }
+  
+  .startGame:active, .restartGame:active, .helpBtn:active, .gameBtn:active {
+    transform: scale(0.8);
+  }
+
+  .nav-menu-box {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #333;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    z-index: 1000;
+  }
+
+  .nav-menu-box.show {
+    display: flex;
+  }
+
+  .nav-logo {
+    display: flex;
+    flex: 0;
+    
+  }
+  .hamburger {
+    display: flex;
+    margin-right: 15px;
+    color: var(--textColour);
   }
 }
