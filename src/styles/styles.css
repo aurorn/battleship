@@ -2,13 +2,26 @@
 
 :root {
   --playerBoardSize: min(60vh, 60vw);
-  --gameBackgroundColour: rgba(12, 12, 12);
-  --outlineColour: rgba(19, 165, 0);
-  --textColour:rgba(19, 165, 0);
+  --gameBackgroundColour: #1b1b1b;
+  --outlineColour: #00ff00;
+  --textColour:#00ff00;
+  --scan-width: 2px;
+  --scan-crt: true;
+  --scan-fps: 60;
+  --scan-color: rgba(0, 0, 0, 0.3);
+  --scan-z-index: 2147483648;
+  --scan-moving-line: true;
+  --scan-opacity: 0.75;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--gameBackgroundColour);
 }
 
 body {
-  font-family: "Montserrat";
   margin: 0;
   padding: 0;
   display: flex;
@@ -18,12 +31,17 @@ body {
 
 /* Nav Bar Styling */
 .navBar {
+  position: absolute; /* Overlay the navBar on top of the battle-app */
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
+  background-color: rgba(0,0,0,0);
   align-items: center;
-  background-color: rgb(29, 29, 29);
-  height: 75px;
+  filter: blur(.7px);
+  z-index: 10;
 }
 
 .nav-logo {
@@ -42,15 +60,17 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
   flex: 1;
+  font-family: "Courier New", monospace;
 }
 
 .nav-title {
-  color: rgb(228, 228, 228);
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .nav-menu-link {
   text-decoration: none;
-  color: rgb(228, 228, 228);
+  color: var(--textColour); 
   padding: 30px;
   font-size: 20px;
 }
@@ -66,19 +86,19 @@ body {
   grid-template: 1fr / 1fr 1fr;
   align-items: center;
   justify-items: center;
-  background-color: var(--gameBackgroundColour);
+  background: var(--gameBackgroundColour);
 }
 
 .battle-app {
-  background-color: var(--gameBackgroundColour);
-  position: relative;
-  background-position: center;
+  background: var(--gameBackgroundColour);
   background-size: cover;
+  background-size: 100% 4px;
   display: none;
   grid-template: 1fr / 4fr 4fr;
   align-items: center;
   justify-items: center;
   height: 100vh;
+  filter: blur(.7px);
 }
 
 .playerBoard {
@@ -113,7 +133,8 @@ body {
 }
 
 .logEntry {
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .playerLogTitle,
@@ -121,7 +142,8 @@ body {
   display: flex;
   justify-content: center;
   font-weight: 700;
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .computerLogBox {
@@ -169,7 +191,8 @@ body {
   justify-self: center;
   top: -80px;
   font-size: 2rem;
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .rowMarkers {
@@ -191,6 +214,7 @@ body {
   justify-content: center;
   align-items: center;
   font-size: 1.5rem;
+  font-family: "Courier New", monospace;
 }
 
 .rowLabel {
@@ -211,8 +235,6 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
-  border: 2px solid black;
-  border-radius: 4px;
   background-color: var(--gameBackgroundColour);
   position: relative;
 }
@@ -229,10 +251,11 @@ body {
   cursor:
     url(../images/gun-pointer.png) 16 16,
     auto;
+    filter: invert(100%) sepia(1) saturate(10000%) hue-rotate(50deg);
 }
 
 .compSquare:hover {
-  background-color: rosybrown;
+  background-color: rgb(190, 3, 3);
   
 }
 
@@ -248,9 +271,7 @@ body {
   opacity: 0.8;
 }
 
-.hover-highlight {
-  background-color: rgba(0, 0, 255, 0.5); /* Blue highlight */
-}
+
 
 /* Start Screen */
 
@@ -260,15 +281,19 @@ body {
   top: -25%;
   font-weight: bold;
   text-transform: uppercase;
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 .newGameSettings {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--gameBackgroundColour);
+  background:var(--gameBackgroundColour);
+  background-size: cover;
+  background-size: 100% 4px;
   height: 100vh;
+  filter: blur(.7px);
 }
 
 .playerNameForm {
@@ -287,8 +312,8 @@ body {
 .playerName,
 .compName {
   font-size: 2rem;
-  font-weight: 700;
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .nameInput label,
@@ -300,7 +325,8 @@ body {
 .nameInput label {
   margin-bottom: 8px;
   font-size: 2rem;
-  color: var(--textColour)
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 .nameInput input {
   outline: none;
@@ -308,7 +334,9 @@ body {
   font-size: 3rem;
   padding-top: 4px;
   padding-bottom: 4px;
-  background-color: beige;
+  color: var(--textColour);
+  background-color: var(--gameBackgroundColour);
+  border-color: var(--outlineColour);
 }
 .nameInput input:hover {
   box-shadow: inset 0 0 8px;
@@ -322,20 +350,34 @@ body {
   padding: 20px 40px;
   font-size: 2rem;
   cursor: pointer;
+  background-color: var(--gameBackgroundColour);
+  color: var(--textColour);
+  border: 2px solid var(--outlineColour);
+  font-family: "Courier New", monospace;
+  transition: transform 0.1s ease;
 }
+
 .startGame:hover,
 .restartGame:hover,
 .helpBtn:hover {
-  background-color: white;
-  color: black;
+  border: 2px solid var(--outlineColour);
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
+  box-shadow: inset 0 0 8px;
+}
+
+.startGame:active,
+.restartGame:active,
+.helpBtn:active {
+  transform: scale(0.8);
 }
 
 .alertBox {
   position: Fixed;
-  z-index: 1000;
+  z-index: 1000000000;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.2);
+  border-color: 2px solid var(--outlineColour);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -345,14 +387,13 @@ body {
 
 .alertTextBox {
   font-size: 4rem;
-  text-shadow: 0 0 6px white;
-  color: rgb(167, 0, 0);
+  color: var(--textColour);
   font-weight: 700;
   text-align: center;
-  background-color: white;
+  background-color: var(--gameBackgroundColour);
+  border: 2px solid var(--outlineColour);
   margin: 2rem;
   padding: 2rem;
-  box-shadow: 0 0 10px 10px black;
 }
 
 .shipPlacer {
@@ -368,10 +409,12 @@ body {
 }
 
 .helpText {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--gameBackgroundColour);
   padding: 10px;
+  border: 2px solid var(--outlineColour);
   font-size: 3rem;
-  font-weight: 700;
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
 }
 
 .validPlacement {
@@ -386,23 +429,101 @@ body {
   display: none;
 }
 
-/* Log box */
-
 /* Footer */
 
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgb(29, 29, 29);
+  background-color: rgba(29, 29, 29, 0);
   height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
 }
 
 .footer-text {
-  color: rgb(228, 228, 228);
+  color: var(--textColour);
   font-size: 15px;
+  font-family: "Courier New", monospace;
+  filter: blur(.7px);
+}
+
+.github-img {
+  height: 30px;
+  width: 30px;
+  margin-left: 10px;
+  filter: invert(100%);
+}
+
+.github-img:hover {
+  animation: spin 1s linear infinite;
+  cursor: pointer;
+  filter: invert(100%) sepia(1) saturate(10000%) hue-rotate(50deg);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* scan-lines */
+
+.scanlines {
+  position: relative;
+  overflow: hidden;
+  font-family: "Courier New", monospace;
+  width: 100vw; 
+  height: 100vh;
+  background-color: var(--gameBackgroundColour);
+}
+
+.scanlines:before,
+.scanlines:after {
+  display: block;
+  pointer-events: none;
+  content: '';
+  position: absolute;
+}
+
+.scanlines:before {
+  width: 100%;
+  height: var(--scan-width);
+  z-index: calc(var(--scan-z-index));
+  background: var(--scan-color);
+  opacity: var(--scan-opacity);
+  animation: scanline 6s linear infinite;
+}
+
+.scanlines:after {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: var(--scan-z-index);
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    var(--scan-color) 51%
+  );
+  background-size: 100% calc(var(--scan-width) * 2);
+  animation: scanlines 1s steps(var(--scan-fps)) infinite;
+}
+
+@keyframes scanline {
+  0% {
+    transform: translate3d(0, 200000%, 0);
+  }
+}
+
+@keyframes scanlines {
+  0% {
+    background-position: 0 50%;
+  }
 }

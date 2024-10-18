@@ -1,9 +1,12 @@
 import { gameLoop } from "./gameLoop";
+import { createNavBar } from "./navBar";
 import { newGame, customAlerts } from "./alertScreens";
 
 function initLoad() {
-  document.body.appendChild(newGame());
-  document.body.appendChild(customAlerts());
+  let scanlines = document.querySelector(".scanlines");
+  let battleApp = document.querySelector(".battle-app");
+  scanlines.appendChild(newGame());
+  battleApp.appendChild(customAlerts());
 
   let startGame = document.querySelector(".startGame");
   startGame.addEventListener("click", startGameHandler);
@@ -17,15 +20,20 @@ function initLoad() {
 }
 
 function startGameHandler() {
+  let scanlines = document.querySelector(".scanlines");
   let playerName = document.querySelector("#userPlayerName").value;
   if (playerName === "") {
     playerName = "User Player";
   }
   window.localStorage.setItem("battleshipPlayerName", `${playerName}`);
   let newGameSettings = document.querySelector(".newGameSettings");
-  document.body.removeChild(newGameSettings);
+  scanlines.removeChild(newGameSettings);
   let showApp = document.querySelector(".battle-app");
   showApp.style.display = "grid";
+
+  const navBar = createNavBar();
+
+  scanlines.prepend(navBar);
 
   gameLoop(playerName);
 }

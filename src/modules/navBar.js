@@ -25,7 +25,7 @@ export const createNavBar = () => {
 
   const navTitle = document.createElement("h1");
   navTitle.className = "nav-title";
-  navTitle.innerText = "Battleship Game";
+  navTitle.innerText = "BATTLESHIP";
 
   navTitleContainer.appendChild(navTitle);
 
@@ -43,7 +43,7 @@ export const createNavBar = () => {
 
   gitLink.className = "nav-menu-link";
   gitLink.innerText = "Github";
-  gitLink.setAttribute("href", "#");
+  gitLink.setAttribute("href", "https://github.com/aurorn");
 
   navMenuBox.appendChild(gameLink);
   navMenuBox.appendChild(aboutLink);

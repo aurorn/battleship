@@ -34,7 +34,7 @@ export default class Player {
   }
 
   logCompMove(column, row, result) {
-    const compMoveBoxLog = document.querySelector(".compMoveBoxLog");  
+    const compMoveBoxLog = document.querySelector(".compMoveBoxLog");
     if (compMoveBoxLog) {
       const compLogEntry = document.createElement("p");
       compLogEntry.classList.add("logEntry");
@@ -44,9 +44,9 @@ export default class Player {
       while (compMoveBoxLog.children.length > 1) {
         compMoveBoxLog.removeChild(compMoveBoxLog.firstChild);
       }
-    } 
+    }
   }
-  
+
   logPlayerMove(column, row, result) {
     const playerMoveBoxLog = document.querySelector(".playerMoveBoxLog");
     if (playerMoveBoxLog) {
@@ -57,10 +57,9 @@ export default class Player {
       this.typeWriter(text, playerLogEntry);
       while (playerMoveBoxLog.children.length > 1) {
         playerMoveBoxLog.removeChild(playerMoveBoxLog.firstChild);
+      }
     }
   }
-}
-
 
   startAttack(column, row, compBoard, isPlayer = true) {
     if (compBoard.checkSunkShips() === true || this.turn === false) {
@@ -191,7 +190,7 @@ export default class Player {
           let shipColor = this.getShipColor(this.Gameboard.board[i][j].name);
           square.style.backgroundColor = shipColor;
         } else if (this.Gameboard.board[i][j] === "miss") {
-          square.style.backgroundColor = "black";
+          square.style.backgroundColor = "#575757";
         } else if (this.Gameboard.board[i][j] === "hit") {
           square.style.backgroundColor = "red";
         }
@@ -204,7 +203,7 @@ export default class Player {
       for (let j = 0; j < this.Gameboard.board[i].length; j++) {
         let square = document.getElementById(`o${j}${i}`);
         if (this.Gameboard.board[i][j] === "miss") {
-          square.style.backgroundColor = "black";
+          square.style.backgroundColor = "#575757";
         } else if (this.Gameboard.board[i][j] === "hit") {
           square.style.backgroundColor = "red";
         }
@@ -217,13 +216,13 @@ export default class Player {
       case "skiff":
         return "green";
       case "submarine":
-        return "yellow";
+        return "green";
       case "destroyer":
-        return "blue";
+        return "green";
       case "battleship":
-        return "purple";
+        return "green";
       case "carrier":
-        return "orange";
+        return "green";
       default:
         return "gray";
     }

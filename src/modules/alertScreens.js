@@ -1,7 +1,8 @@
 function newGame() {
+  let scanlines = document.querySelector(".scanlines");
   let newGame = document.createElement("div");
   newGame.classList.add("newGameSettings");
-  document.body.appendChild(newGame);
+  scanlines.appendChild(newGame);
 
   let gameName = document.createElement("header");
   gameName.classList.add("gameName");
@@ -88,7 +89,7 @@ function alertSunkShips(playerName, shipName) {
 
   let alertTextBox = document.querySelector(".alertTextBox");
   alertTextBox.textContent = `${playerName}'s ${shipName} has been sunk!`;
-  setTimeout(hideAlert, 1000);
+  setTimeout(hideAlert, 2000);
 }
 
 function alertGameOver(playerName) {
