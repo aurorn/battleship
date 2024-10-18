@@ -30,6 +30,9 @@ function createIntroScreen() {
         typewriter(gameBtnText, "Battleship", () => {
             let gameBtn = document.querySelector(".gameBtnText");
             gameBtn.classList.add("gameBtn");
+            let caret = document.createElement("span");
+            caret.classList.add("caret");
+            gameBtn.appendChild(caret);
             gameBtn.addEventListener("click", () => {
                 document.getElementsByClassName("introScreen")[0].style.display = "none";
             });
