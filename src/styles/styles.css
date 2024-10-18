@@ -509,6 +509,7 @@ body {
   background-color: var(--gameBackgroundColour);
   color: var(--textColour);
   font-family: "Courier New", monospace;
+  filter: blur(.7px);
 }
 
 .introText {
@@ -526,6 +527,7 @@ body {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   margin-left: 40px;
+  
 }
 
 .gameBtnText:hover {
