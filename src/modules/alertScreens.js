@@ -75,7 +75,9 @@ function customAlerts() {
 
 function alertGameStart() {
   let alertBox = document.querySelector(".alertBox");
+  let overlay = document.querySelector(".overlay");
   alertBox.classList.remove("hidden");
+  overlay.classList.add("active");
 
   let textBox = document.querySelector(".alertTextBox");
   textBox.textContent = "Click an Enemy Square to Attack!";
@@ -85,7 +87,9 @@ function alertGameStart() {
 
 function alertSunkShips(playerName, shipName) {
   let alertBox = document.querySelector(".alertBox");
+  let overlay = document.querySelector(".overlay");
   alertBox.classList.remove("hidden");
+  overlay.classList.add("active");
 
   let alertTextBox = document.querySelector(".alertTextBox");
   alertTextBox.textContent = `${playerName}'s ${shipName} has been sunk!`;
@@ -94,7 +98,9 @@ function alertSunkShips(playerName, shipName) {
 
 function alertGameOver(playerName) {
   let alertBox = document.querySelector(".alertBox");
+  let overlay = document.querySelector(".overlay");
   alertBox.classList.remove("hidden");
+  overlay.classList.add("active");
   alertBox.classList.add("winScreen");
 
   let alertTextBox = document.querySelector(".alertTextBox");
@@ -118,10 +124,12 @@ function alertGameOver(playerName) {
 
 function hideAlert() {
   let alertBox = document.querySelector(".alertBox");
+  let overlay = document.querySelector(".overlay");
   if (alertBox.classList.contains("winScreen")) {
     return;
   }
   alertBox.classList.add("hidden");
+  overlay.classList.remove("active");
 }
 
 export {
