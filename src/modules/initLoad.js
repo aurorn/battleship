@@ -1,12 +1,16 @@
 import { gameLoop } from "./gameLoop";
 import { createNavBar } from "./navBar";
 import { newGame, customAlerts } from "./alertScreens";
+import { createIntroScreen } from "./introScreen";
 
 function initLoad() {
   let scanlines = document.querySelector(".scanlines");
   let battleApp = document.querySelector(".battle-app");
   scanlines.appendChild(newGame());
   battleApp.appendChild(customAlerts());
+
+  // Call createIntroScreen to load the intro screen
+  createIntroScreen();
 
   let startGame = document.querySelector(".startGame");
   startGame.addEventListener("click", startGameHandler);
