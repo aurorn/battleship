@@ -3,6 +3,31 @@ import { createNavBar } from "./navBar";
 import { newGame, customAlerts } from "./alertScreens";
 import { createIntroScreen } from "./introScreen";
 
+function btnSwitch() {
+  const battleApp = document.querySelector(".battle-app");
+  const switchContainer = document.createElement("div");
+  switchContainer.classList.add("switchContainer");
+  const switchButton = document.createElement("button");
+  switchButton.classList.add("btnSwitch");
+  switchButton.textContent = "Switch Board";
+  battleApp.appendChild(switchContainer);
+  switchContainer.appendChild(switchButton);
+
+  switchButton.addEventListener("click", () => {
+    const playerBoard = document.querySelector(".playerBoard");
+    const compBoard = document.querySelector(".compBoard");
+    if (playerBoard.style.display === "none") {
+      playerBoard.style.display = "grid";
+      compBoard.style.display = "none";
+    } else {
+      playerBoard.style.display = "none";
+      compBoard.style.display = "grid";
+    }
+  });
+
+  return switchContainer;
+}
+
 function initLoad() {
   let scanlines = document.querySelector(".scanlines");
   let battleApp = document.querySelector(".battle-app");
@@ -44,6 +69,11 @@ function startGameHandler() {
   scanlines.prepend(navBar);
 
   gameLoop(playerName);
+
+  const switchButton = btnSwitch();
+  if (window.innerWidth <= 768) {
+    showApp.appendChild(switchButton);
+  }
 }
 
 export { initLoad };

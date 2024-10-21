@@ -4,7 +4,7 @@
   --playerBoardSize: min(60vh, 60vw);
   --gameBackgroundColour: #1b1b1b;
   --outlineColour: #00ff00;
-  --textColour:#00ff00;
+  --textColour: #00ff00;
   --scan-width: 2px;
   --scan-crt: true;
   --scan-fps: 60;
@@ -14,7 +14,8 @@
   --scan-opacity: 0.75;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -31,16 +32,13 @@ body {
 
 /* Nav Bar Styling */
 .navBar {
-  position: absolute; /* Overlay the navBar on top of the battle-app */
-  top: 0;
-  left: 0;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
   align-items: center;
-  filter: blur(.7px);
+  filter: blur(0.7px);
   z-index: 10;
 }
 
@@ -70,7 +68,7 @@ body {
 
 .nav-menu-link {
   text-decoration: none;
-  color: var(--textColour); 
+  color: var(--textColour);
   padding: 30px;
   font-size: 20px;
 }
@@ -104,7 +102,7 @@ body {
   align-items: center;
   justify-items: center;
   height: 100vh;
-  filter: blur(.7px);
+  filter: blur(0.7px);
 }
 
 .playerBoard {
@@ -226,13 +224,13 @@ body {
 .rowLabel {
   height: 10%;
   width: 100%;
-  color: var(--textColour)
+  color: var(--textColour);
 }
 
 .columnLabel {
   height: 100%;
   width: 10%;
-  color: var(--textColour)
+  color: var(--textColour);
 }
 
 .playerGameSquares,
@@ -257,12 +255,10 @@ body {
   cursor:
     url(../images/gun-pointer.png) 16 16,
     auto;
-    
 }
 
 .compSquare:hover {
   background-color: rgb(190, 3, 3);
-  
 }
 
 .targetHit {
@@ -277,7 +273,24 @@ body {
   opacity: 0.8;
 }
 
+.btnSwitch {
+  padding: 10px;
+  font-size: 2rem;
+  cursor: pointer;
+  background-color: var(--gameBackgroundColour);
+  color: var(--textColour);
+  border: 2px solid var(--outlineColour);
+  font-family: "Courier New", monospace;
+  transition: transform 0.1s ease;
+  margin-bottom: 20px;
+}
 
+.btnSwitch:hover {
+  border: 2px solid var(--outlineColour);
+  color: var(--textColour);
+  font-family: "Courier New", monospace;
+  box-shadow: inset 0 0 8px;
+}
 
 /* Start Screen */
 
@@ -295,11 +308,11 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background:var(--gameBackgroundColour);
+  background: var(--gameBackgroundColour);
   background-size: cover;
   background-size: 100% 4px;
   height: 100vh;
-  filter: blur(.7px);
+  filter: blur(0.7px);
 }
 
 .playerNameForm {
@@ -384,7 +397,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   padding: 20px;
-  z-index: 1001; /* Higher z-index for the alert box */
+  z-index: 1001;
 }
 
 .alertTextBox {
@@ -441,11 +454,11 @@ body {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  display: none; /* Initially hidden */
+  display: none;
 }
 
 .overlay.active {
-  display: block; /* Show when active */
+  display: block;
 }
 
 /* Footer */
@@ -460,14 +473,13 @@ body {
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
 }
 
 .footer-text {
   color: var(--textColour);
   font-size: 15px;
   font-family: "Courier New", monospace;
-  filter: blur(.7px);
+  filter: blur(0.7px);
 }
 
 .github-img {
@@ -501,13 +513,12 @@ body {
   background-color: var(--gameBackgroundColour);
   color: var(--textColour);
   font-family: "Courier New", monospace;
-  filter: blur(.7px);
+  filter: blur(0.7px);
 }
 
 .introText {
   font-size: 2rem;
-  margin: 40px
-
+  margin: 40px;
 }
 
 .gameBtnText {
@@ -517,9 +528,10 @@ body {
   background-color: var(--gameBackgroundColour);
   color: var(--textColour);
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
   margin-left: 40px;
-  
 }
 
 .gameBtnText:hover {
@@ -529,7 +541,7 @@ body {
 .caret {
   display: inline-block;
   width: 10px;
-  height: 2rem; /* Match the font size of the text */
+  height: 2rem;
   background-color: var(--textColour);
   margin-left: 5px;
   animation: blink 1s step-end infinite;
@@ -547,7 +559,7 @@ body {
   position: relative;
   overflow: hidden;
   font-family: "Courier New", monospace;
-  width: 100vw; 
+  width: 100vw;
   height: 100vh;
   background-color: var(--gameBackgroundColour);
 }
@@ -556,7 +568,7 @@ body {
 .scanlines:after {
   display: block;
   pointer-events: none;
-  content: '';
+  content: "";
   position: absolute;
 }
 
@@ -596,8 +608,8 @@ body {
   }
 }
 
-
 @media (max-width: 768px) {
+
   .battle-app {
     display: none;
     flex-direction: column;
@@ -606,29 +618,32 @@ body {
     gap: 40px;
   }
 
-  .playerBoard, .compBoard {
-    width: 90vw;
-    height: 90vw;
+  .playerBoard,
+  .compBoard {
+    width: 80vw;
+    height: 80vw;
     margin: 10px 0;
+    
   }
 
   .shipPlacer {
     gap: 0;
     margin: 0;
   }
-  
+
   .helpBtn {
     margin-top: 30px;
   }
-  
+
   .helpText {
     font-size: 1.5rem;
   }
 
   .playerBoard {
     margin-left: -15px;
+    
   }
-  
+
   .playerLogBox {
     display: none;
   }
@@ -638,13 +653,19 @@ body {
     margin-left: -15px;
   }
 
-  .playerLogBox, .computerLogBox {
-    width: 70%;
+  .playerLogBox,
+  .computerLogBox {
+    width: 50vw;
     height: auto;
   }
 
-  .playerMoveLogBox, .compMoveLogBox {
+  .playerMoveLogBox,
+  .compMoveLogBox {
     align-items: center;
+  }
+  .logEntry {
+    font-size: 2vw;
+
   }
 
   .newGameSettings {
@@ -656,11 +677,12 @@ body {
     background-size: cover;
     background-size: 100% 4px;
     height: 100vh;
-    filter: blur(.7px);
+    filter: blur(0.7px);
   }
 
-  .nameInput {
+  .nameInput input {
     width: 90vw;
+    font-size: 10vw;
   }
 
   .introScreen {
@@ -671,13 +693,14 @@ body {
     background-color: var(--gameBackgroundColour);
     color: var(--textColour);
     font-family: "Courier New", monospace;
-    filter: blur(.7px);
+    filter: blur(0.7px);
   }
 
-  .introText, .gameBtnText {
+  .introText,
+  .gameBtnText {
     text-align: center;
   }
-  
+
   .gameBtn {
     display: flex;
     justify-content: center;
@@ -689,8 +712,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4rem;
     position: relative;
+    font-size: 12vw;
     top: -25%;
     font-weight: bold;
     text-transform: uppercase;
@@ -698,9 +721,15 @@ body {
     font-family: "Courier New", monospace;
   }
 
-  .startGame, .restartGame, .helpBtn {
+  .helpText {
+    font-size: 4vw;
+  }
+
+  .startGame,
+  .restartGame,
+  .helpBtn {
     padding: 20px 40px;
-    font-size: 2rem;
+    font-size: 6vw;
     cursor: pointer;
     background-color: var(--gameBackgroundColour);
     color: var(--textColour);
@@ -712,15 +741,20 @@ body {
   .restartGame {
     margin-left: 15px;
   }
-  
-  .startGame:hover, .restartGame:hover, .helpBtn:hover {
+
+  .startGame:hover,
+  .restartGame:hover,
+  .helpBtn:hover {
     border: 2px solid var(--outlineColour);
     color: var(--textColour);
     font-family: "Courier New", monospace;
     box-shadow: inset 0 0 8px;
   }
-  
-  .startGame:active, .restartGame:active, .helpBtn:active, .gameBtn:active {
+
+  .startGame:active,
+  .restartGame:active,
+  .helpBtn:active,
+  .gameBtn:active {
     transform: scale(0.8);
   }
 
@@ -735,6 +769,10 @@ body {
     z-index: 1000;
   }
 
+  .nav-title {
+    font-size: 5vw;
+  }
+
   .nav-menu-box.show {
     display: flex;
   }
@@ -742,11 +780,15 @@ body {
   .nav-logo {
     display: flex;
     flex: 0;
-    
   }
+
   .hamburger {
     display: flex;
     margin-right: 15px;
     color: var(--textColour);
+  }
+
+  .btnSwitch {
+    font-size: 5vw;
   }
 }
