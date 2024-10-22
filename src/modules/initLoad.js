@@ -2,15 +2,31 @@ import { gameLoop } from "./gameLoop";
 import { createNavBar } from "./navBar";
 import { newGame, customAlerts } from "./alertScreens";
 import { createIntroScreen } from "./introScreen";
+import image from "../images/github-mark.svg";
+
+function footer() {
+  const footer = document.createElement("footer");
+  footer.classList.add("footer");
+  const footerText = document.createElement("p");
+  footerText.textContent = "© Made by Sam Cason";
+  footerText.classList.add("footer-text");
+  footer.appendChild(footerText);
+  const footerImg = document.createElement("img");
+  footerImg.src = image;
+  footerImg.alt = "github";
+  footerImg.classList.add("github-img");
+  footer.appendChild(footerImg);
+  return footer;
+}
 
 function btnSwitch() {
-  const battleApp = document.querySelector(".battle-app");
+  //onst battleApp = document.querySelector(".battle-app");
   const switchContainer = document.createElement("div");
   switchContainer.classList.add("switchContainer");
   const switchButton = document.createElement("button");
   switchButton.classList.add("btnSwitch");
   switchButton.textContent = "Switch Board";
-  battleApp.appendChild(switchContainer);
+  //battleApp.appendChild(switchContainer);
   switchContainer.appendChild(switchButton);
 
   switchButton.addEventListener("click", () => {
@@ -29,11 +45,12 @@ function btnSwitch() {
 }
 
 function initLoad() {
+  document.body.appendChild(footer());
   let scanlines = document.querySelector(".scanlines");
   let battleApp = document.querySelector(".battle-app");
   scanlines.appendChild(newGame());
   battleApp.appendChild(customAlerts());
-
+  
   createIntroScreen();
 
   let startGame = document.querySelector(".startGame");
@@ -70,10 +87,10 @@ function startGameHandler() {
 
   gameLoop(playerName);
 
-  const switchButton = btnSwitch();
+  /*const switchButton = btnSwitch();
   if (window.innerWidth <= 768) {
     showApp.appendChild(switchButton);
-  }
+  }*/
 }
 
-export { initLoad };
+export { initLoad, btnSwitch };

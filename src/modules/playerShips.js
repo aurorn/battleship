@@ -1,6 +1,7 @@
 import { createPlayerBoard, createCompBoard } from "./DOMloader";
 import { shipPlacer } from "./alertScreens";
 import { playerLogBox, computerLogBox } from "./logBoxes";
+import { btnSwitch } from "./initLoad";
 
 function playerShipPlacement(player) {
   return new Promise((resolve) => {
@@ -68,6 +69,8 @@ function runGame(player) {
   battleApp.appendChild(createPlayerBoard(player.name));
   battleApp.appendChild(createCompBoard());
   battleApp.appendChild(computerLogBox());
+  const switchButton = btnSwitch();
+  battleApp.appendChild(switchButton);
 }
 
 function placementHover(player, ship, square) {

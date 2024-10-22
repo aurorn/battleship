@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,400;1,500;1,700;1,900&display=swap");
 
 :root {
-  --playerBoardSize: min(60vh, 60vw);
+  --playerBoardSize: min(60dvh, 60dvw);
   --gameBackgroundColour: #1b1b1b;
   --outlineColour: #00ff00;
   --textColour: #00ff00;
@@ -18,6 +18,8 @@ body,
 html {
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background-color: var(--gameBackgroundColour);
 }
@@ -27,7 +29,7 @@ body {
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 100svh;
 }
 
 /* Nav Bar Styling */
@@ -101,13 +103,14 @@ body {
   grid-template: 1fr / 4fr 4fr;
   align-items: center;
   justify-items: center;
-  height: 100vh;
+  height: 100svh;
   filter: blur(0.7px);
+  overflow: hidden;
 }
 
 .playerBoard {
-  height: var(--playerBoardSize);
-  width: var(--playerBoardSize);
+  width: clamp(300px, 50vw, 600px); 
+  height: clamp(300px, 50vw, 600px);
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
   position: relative;
@@ -115,8 +118,8 @@ body {
 }
 
 .compBoard {
-  height: var(--playerBoardSize);
-  width: var(--playerBoardSize);
+  width: clamp(300px, 50vw, 600px); 
+  height: clamp(300px, 50vw, 600px);
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
   position: relative;
@@ -311,7 +314,7 @@ body {
   background: var(--gameBackgroundColour);
   background-size: cover;
   background-size: 100% 4px;
-  height: 100vh;
+  height: 100svh;
   filter: blur(0.7px);
 }
 
@@ -450,8 +453,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100svw;
+  height: 100svh;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   display: none;
@@ -467,12 +470,13 @@ body {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: rgba(29, 29, 29, 0);
+  background-color: var(--gameBackgroundColour);
   height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: 10000;
 }
 
 .footer-text {
@@ -509,7 +513,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
-  height: 100vh;
+  height: 100svh;
   background-color: var(--gameBackgroundColour);
   color: var(--textColour);
   font-family: "Courier New", monospace;
@@ -557,10 +561,9 @@ body {
 
 .scanlines {
   position: relative;
-  overflow: hidden;
   font-family: "Courier New", monospace;
-  width: 100vw;
-  height: 100vh;
+  width: 100svw;
+  height: 100svh;
   background-color: var(--gameBackgroundColour);
 }
 
@@ -610,52 +613,67 @@ body {
 
 @media (max-width: 768px) {
 
+  .scanlines {
+    height:fit-content;
+  }
+
+  .introScreen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--gameBackgroundColour);
+    color: var(--textColour);
+    font-family: "Courier New", monospace;
+    filter: blur(0.7px);
+  }
+
   .battle-app {
     display: none;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 40px;
+    gap: 20px;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x:hidden;
+    scrollbar-width: none;
+    padding-top: 60px;
   }
 
-  .playerBoard,
-  .compBoard {
-    width: 80vw;
-    height: 80vw;
-    margin: 10px 0;
-    
+  .playerGameSquares,.compGameSquares {
+    height: auto;
+    width: auto;
   }
 
   .shipPlacer {
-    gap: 0;
-    margin: 0;
-  }
-
-  .helpBtn {
-    margin-top: 30px;
+    gap: 34px;
+    margin-top: 34px;
+    flex-direction: row;
+    margin-bottom: 200px;
+    width: auto;
   }
 
   .helpText {
     font-size: 1.5rem;
   }
 
-  .playerBoard {
-    margin-left: -15px;
-    
+  .playerName, .compName {
+    margin-top: 40px;
+  }
+
+  .playerBoard,
+  .compBoard {
+      width: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
+      height: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
+      margin: 0;
   }
 
   .playerLogBox {
     display: none;
   }
 
-  .compBoard {
-    margin: 0;
-    margin-left: -15px;
-  }
-
   .playerLogBox,
   .computerLogBox {
-    width: 50vw;
+    width: auto;
     height: auto;
   }
 
@@ -663,33 +681,33 @@ body {
   .compMoveLogBox {
     align-items: center;
   }
-  .logEntry {
-    font-size: 2vw;
 
+  .logEntry {
+    font-size: 2svw;
   }
 
   .newGameSettings {
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     background: var(--gameBackgroundColour);
     background-size: cover;
     background-size: 100% 4px;
-    height: 100vh;
     filter: blur(0.7px);
+    overflow-y: scroll;
+    scrollbar-width: none;
   }
 
   .nameInput input {
-    width: 90vw;
-    font-size: 10vw;
+    width: 90svw;
+    font-size: 10svw;
   }
 
   .introScreen {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    max-height: 100svh;
     background-color: var(--gameBackgroundColour);
     color: var(--textColour);
     font-family: "Courier New", monospace;
@@ -710,26 +728,23 @@ body {
 
   .gameName {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    top: 0%;
+    margin-bottom: 4dvh;
     position: relative;
-    font-size: 12vw;
-    top: -25%;
-    font-weight: bold;
-    text-transform: uppercase;
+    font-size: 12svw;
     color: var(--textColour);
     font-family: "Courier New", monospace;
   }
 
   .helpText {
-    font-size: 4vw;
+    font-size: 4svw;
   }
 
   .startGame,
   .restartGame,
   .helpBtn {
-    padding: 20px 40px;
-    font-size: 6vw;
+    padding: 10px 20px;
+    font-size: 5svw;
     cursor: pointer;
     background-color: var(--gameBackgroundColour);
     color: var(--textColour);
@@ -758,6 +773,13 @@ body {
     transform: scale(0.8);
   }
 
+  .navBar {
+    height: 60px;
+    z-index: 100000;
+    position: relative;
+    margin-bottom: auto;
+  }
+
   .nav-menu-box {
     display: none;
     flex-direction: column;
@@ -770,7 +792,7 @@ body {
   }
 
   .nav-title {
-    font-size: 5vw;
+    font-size: 5svw;
   }
 
   .nav-menu-box.show {
@@ -789,6 +811,12 @@ body {
   }
 
   .btnSwitch {
-    font-size: 5vw;
+    font-size: 5svw;
+    margin-bottom: 200px;
   }
+  
+  .footer {
+    margin-top: auto;
+  }
+
 }
