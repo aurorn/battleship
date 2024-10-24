@@ -109,7 +109,7 @@ body {
 }
 
 .playerBoard {
-  width: clamp(300px, 50vw, 600px); 
+  width: clamp(300px, 50vw, 600px);
   height: clamp(300px, 50vw, 600px);
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
@@ -118,7 +118,7 @@ body {
 }
 
 .compBoard {
-  width: clamp(300px, 50vw, 600px); 
+  width: clamp(300px, 50vw, 600px);
   height: clamp(300px, 50vw, 600px);
   display: grid;
   grid-template: 10% 1fr / 10% 1fr;
@@ -612,9 +612,8 @@ body {
 }
 
 @media (max-width: 768px) {
-
   .scanlines {
-    height:fit-content;
+    height: fit-content;
   }
 
   .introScreen {
@@ -634,12 +633,13 @@ body {
     gap: 20px;
     flex: 1;
     overflow-y: auto;
-    overflow-x:hidden;
+    overflow-x: hidden;
     scrollbar-width: none;
     padding-top: 60px;
   }
 
-  .playerGameSquares,.compGameSquares {
+  .playerGameSquares,
+  .compGameSquares {
     height: auto;
     width: auto;
   }
@@ -656,15 +656,16 @@ body {
     font-size: 1.5rem;
   }
 
-  .playerName, .compName {
+  .playerName,
+  .compName {
     margin-top: 40px;
   }
 
   .playerBoard,
   .compBoard {
-      width: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
-      height: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
-      margin: 0;
+    width: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
+    height: clamp(200px, 80vw, 400px); /* Adjusted for smaller screens */
+    margin: 0;
   }
 
   .playerLogBox {
@@ -830,9 +831,8 @@ body {
     font-size: 5svw;
     margin-bottom: 200px;
   }
-  
+
   .footer {
     margin-top: auto;
   }
-
 }

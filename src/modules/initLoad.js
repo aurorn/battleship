@@ -48,7 +48,7 @@ function initLoad() {
   let battleApp = document.querySelector(".battle-app");
   scanlines.appendChild(newGame());
   battleApp.appendChild(customAlerts());
-  
+
   createIntroScreen();
 
   let startGame = document.querySelector(".startGame");
