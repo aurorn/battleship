@@ -20,13 +20,11 @@ function footer() {
 }
 
 function btnSwitch() {
-  //onst battleApp = document.querySelector(".battle-app");
   const switchContainer = document.createElement("div");
   switchContainer.classList.add("switchContainer");
   const switchButton = document.createElement("button");
   switchButton.classList.add("btnSwitch");
   switchButton.textContent = "Switch Board";
-  //battleApp.appendChild(switchContainer);
   switchContainer.appendChild(switchButton);
 
   switchButton.addEventListener("click", () => {
@@ -86,11 +84,6 @@ function startGameHandler() {
   scanlines.prepend(navBar);
 
   gameLoop(playerName);
-
-  /*const switchButton = btnSwitch();
-  if (window.innerWidth <= 768) {
-    showApp.appendChild(switchButton);
-  }*/
 }
 
 export { initLoad, btnSwitch };

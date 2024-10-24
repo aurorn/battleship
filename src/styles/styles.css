@@ -675,6 +675,7 @@ body {
   .computerLogBox {
     width: auto;
     height: auto;
+    margin-top: 50px;
   }
 
   .playerMoveLogBox,
@@ -771,6 +772,21 @@ body {
   .helpBtn:active,
   .gameBtn:active {
     transform: scale(0.8);
+  }
+
+  .alertBox {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    z-index: 1001;
+  }
+
+  .alertTextBox {
+    font-size: 5svw;
+    margin: 0;
+    padding: 3svw;
   }
 
   .navBar {
